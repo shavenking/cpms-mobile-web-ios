@@ -1,4 +1,3 @@
-import { combineReducers } from 'redux'
 import {PROJECTS_RECEIVED} from '../constant/actionType'
 
 const projects = (state = [], action) => {
@@ -10,6 +9,4 @@ const projects = (state = [], action) => {
     }
 }
 
-export default combineReducers({
-    projects
-})
+export default { projects }

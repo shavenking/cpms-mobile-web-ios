@@ -2,14 +2,11 @@ import React, { Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
 import { getAllProjects } from '../action/project'
 import { Link } from 'react-router'
+import Navbar from '../component/Navbar'
 
 class ProjectsContainer extends Component {
     componentDidMount() {
         this.props.dispatch(getAllProjects())
-    }
-
-    componentDidUpdate() {
-        window.framework7.sizeNavbars('.view-main')
     }
 
     render() {
@@ -20,11 +17,7 @@ class ProjectsContainer extends Component {
         return (
             <div className="page">
                 <div className="page-content">
-                    <div className="navbar">
-                        <div className="navbar-inner">
-                            <div className="center">選擇專案</div>
-                        </div>
-                    </div>
+                    <Navbar title="選擇專案" />
                     <div className="list-block">
                         <ul>
                             {this.props.projects.map(project => (
