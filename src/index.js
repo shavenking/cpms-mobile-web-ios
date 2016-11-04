@@ -6,9 +6,10 @@ import thunk from 'redux-thunk'
 import reducer from './reducer'
 import App from './container/App'
 import ProjectHome from './container/ProjectHome'
-import { Router, Route, hashHistory, IndexRoute } from 'react-router'
+import { Router, Route, hashHistory, IndexRoute, IndexRedirect } from 'react-router'
 import ProjectsContainer from './container/ProjectsContainer'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import RegisterPageContainer from './container/RegisterPageContainer'
 
 const middleware = [thunk];
 
@@ -21,12 +22,26 @@ const store = createStore(
 
 const history = syncHistoryWithStore(hashHistory, store)
 
+const UserAuthenticated = (nextState, replace, callback) => {
+    const state = store.getState()
+
+    if (!state.currentUser || !state.currentUser.authToken) {
+        replace('/register')
+    }
+
+    callback()
+}
+
 render(
     <Provider store={store}>
         <Router history={history}>
             <Route path="/" component={App}>
-                <IndexRoute component={ProjectsContainer} />
-                <Route path="projects/:projectId" component={ProjectHome} />
+                <IndexRedirect to="projects" />
+                <Route path="projects" onEnter={UserAuthenticated}>
+                    <IndexRoute component={ProjectsContainer} />
+                    <Route path=":projectId" component={ProjectHome} />
+                </Route>
+                <Route path="register" component={RegisterPageContainer} />
             </Route>
         </Router>
     </Provider>,
