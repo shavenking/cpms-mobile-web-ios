@@ -6,7 +6,6 @@ import { registerUser } from '../action/User'
 
 class RegisterContainer extends Component {
     handleOnSubmit = ({email, password, passwordConfirmation}) => {
-        // console.log('submit', email, password, passwordConfirmation)
         this.props.dispatch(registerUser({email, password, passwordConfirmation}))
 
         // fake .then action

@@ -1,7 +1,8 @@
 import {
     REGISTER_USER,
     REGISTER_USER_SUCCESS,
-    REGISTER_USER_FAILED
+    REGISTER_USER_FAILED,
+    LOGIN_USER_SUCCESS
 } from '../constant/actionType'
 
 export const registerUser = ({email, password, passwordConfirmation}) => {
@@ -15,6 +16,20 @@ export const registerUser = ({email, password, passwordConfirmation}) => {
                     authToken: 'token',
                     id: '1'
                     // should fetch user profile as well
+                })
+            }, 500)
+        }
+    )
+}
+
+export const loginUser = ({email, password}) => {
+    return (
+        (dispatch) => {
+            setTimeout(() => {
+                dispatch({
+                    type: LOGIN_USER_SUCCESS,
+                    authToken: 'token',
+                    id: '1'
                 })
             }, 500)
         }

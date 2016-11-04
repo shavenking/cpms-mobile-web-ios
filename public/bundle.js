@@ -84,6 +84,10 @@
 
 	var _RegisterPageContainer2 = _interopRequireDefault(_RegisterPageContainer);
 
+	var _LoginPageContainer = __webpack_require__(273);
+
+	var _LoginPageContainer2 = _interopRequireDefault(_LoginPageContainer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var middleware = [_reduxThunk2.default];
@@ -120,7 +124,8 @@
 	                _react2.default.createElement(_reactRouter.IndexRoute, { component: _ProjectsContainer2.default }),
 	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId', component: _ProjectHome2.default })
 	            ),
-	            _react2.default.createElement(_reactRouter.Route, { path: 'register', component: _RegisterPageContainer2.default })
+	            _react2.default.createElement(_reactRouter.Route, { path: 'register', component: _RegisterPageContainer2.default }),
+	            _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LoginPageContainer2.default })
 	        )
 	    )
 	), document.getElementById('root'));
@@ -23151,6 +23156,7 @@
 
 	    switch (action.type) {
 	        case _actionType.REGISTER_USER_SUCCESS:
+	        case _actionType.LOGIN_USER_SUCCESS:
 	            return Object.assign({}, state, {
 	                id: action.id,
 	                authToken: action.authToken
@@ -23177,6 +23183,8 @@
 	var REGISTER_USER = exports.REGISTER_USER = 'REGISTER_USER';
 	var REGISTER_USER_SUCCESS = exports.REGISTER_USER_SUCCESS = 'REGISTER_USER_SUCCESS';
 	var REGISTER_USER_FAILED = exports.REGISTER_USER_FAILED = 'REGISTER_USER_FAILED';
+
+	var LOGIN_USER_SUCCESS = exports.LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
 
 /***/ },
 /* 199 */
@@ -29480,7 +29488,6 @@
 	            var password = _ref2.password;
 	            var passwordConfirmation = _ref2.passwordConfirmation;
 
-	            // console.log('submit', email, password, passwordConfirmation)
 	            _this.props.dispatch((0, _User.registerUser)({ email: email, password: password, passwordConfirmation: passwordConfirmation }));
 
 	            // fake .then action
@@ -29709,7 +29716,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.registerUser = undefined;
+	exports.loginUser = exports.registerUser = undefined;
 
 	var _actionType = __webpack_require__(198);
 
@@ -29731,6 +29738,266 @@
 	        }, 500);
 	    };
 	};
+
+	var loginUser = exports.loginUser = function loginUser(_ref2) {
+	    var email = _ref2.email;
+	    var password = _ref2.password;
+
+	    return function (dispatch) {
+	        setTimeout(function () {
+	            dispatch({
+	                type: _actionType.LOGIN_USER_SUCCESS,
+	                authToken: 'token',
+	                id: '1'
+	            });
+	        }, 500);
+	    };
+	};
+
+/***/ },
+/* 273 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(187);
+
+	var _LoginPage = __webpack_require__(274);
+
+	var _LoginPage2 = _interopRequireDefault(_LoginPage);
+
+	var _reactRouter = __webpack_require__(202);
+
+	var _User = __webpack_require__(272);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var LoginContainer = function (_Component) {
+	    _inherits(LoginContainer, _Component);
+
+	    function LoginContainer() {
+	        var _ref;
+
+	        var _temp, _this, _ret;
+
+	        _classCallCheck(this, LoginContainer);
+
+	        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+	            args[_key] = arguments[_key];
+	        }
+
+	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = LoginContainer.__proto__ || Object.getPrototypeOf(LoginContainer)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnSubmit = function (_ref2) {
+	            var email = _ref2.email;
+	            var password = _ref2.password;
+
+	            _this.props.dispatch((0, _User.loginUser)({ email: email, password: password }));
+
+	            // fake .then action
+	            setTimeout(function () {
+	                _reactRouter.hashHistory.replace('/');
+	            }, 1000);
+	        }, _temp), _possibleConstructorReturn(_this, _ret);
+	    }
+
+	    _createClass(LoginContainer, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_LoginPage2.default, { onSubmit: this.handleOnSubmit });
+	        }
+	    }]);
+
+	    return LoginContainer;
+	}(_react.Component);
+
+	exports.default = (0, _reactRedux.connect)()(LoginContainer);
+
+/***/ },
+/* 274 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRouter = __webpack_require__(202);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var LoginPage = function (_Component) {
+	    _inherits(LoginPage, _Component);
+
+	    function LoginPage(props) {
+	        _classCallCheck(this, LoginPage);
+
+	        var _this = _possibleConstructorReturn(this, (LoginPage.__proto__ || Object.getPrototypeOf(LoginPage)).call(this, props));
+
+	        _this.handleEmailChange = function (e) {
+	            _this.setState(_extends({}, _this.state, {
+	                email: e.target.value
+	            }));
+	        };
+
+	        _this.handlePasswordChange = function (e) {
+	            _this.setState(_extends({}, _this.state, {
+	                password: e.target.value
+	            }));
+	        };
+
+	        _this.handleOnSubmit = function (e) {
+	            e.preventDefault();
+
+	            _this.props.onSubmit(_this.state);
+	        };
+
+	        _this.state = {
+	            email: '',
+	            password: ''
+	        };
+	        return _this;
+	    }
+
+	    _createClass(LoginPage, [{
+	        key: 'render',
+	        value: function render() {
+	            var _state = this.state;
+	            var email = _state.email;
+	            var password = _state.password;
+
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'page' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'page-content' },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'page-content login-screen-content' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'login-screen-title' },
+	                            'CPMS'
+	                        ),
+	                        _react2.default.createElement(
+	                            'form',
+	                            null,
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'list-block' },
+	                                _react2.default.createElement(
+	                                    'ul',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        { className: 'item-content' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'item-inner' },
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-title label' },
+	                                                'E-Mail'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-input' },
+	                                                _react2.default.createElement('input', { type: 'text', name: 'email', value: email, onChange: this.handleEmailChange })
+	                                            )
+	                                        )
+	                                    ),
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        { className: 'item-content' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'item-inner' },
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-title label' },
+	                                                '\u5BC6\u78BC'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-input' },
+	                                                _react2.default.createElement('input', { type: 'password', name: 'password', value: password, onChange: this.handlePasswordChange })
+	                                            )
+	                                        )
+	                                    )
+	                                )
+	                            ),
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'list-block' },
+	                                _react2.default.createElement(
+	                                    'ul',
+	                                    null,
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            'a',
+	                                            { href: '#', className: 'item-link list-button', onClick: this.handleOnSubmit },
+	                                            '\u767B\u5165'
+	                                        )
+	                                    )
+	                                ),
+	                                _react2.default.createElement(
+	                                    'div',
+	                                    { className: 'list-block-label' },
+	                                    _react2.default.createElement(
+	                                        'p',
+	                                        null,
+	                                        _react2.default.createElement(
+	                                            _reactRouter.Link,
+	                                            { to: '/register', className: 'close-login-screen' },
+	                                            '\u9084\u4E0D\u662F\u6703\u54E1\uFF1F\u9EDE\u6211\u8A3B\u518A'
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return LoginPage;
+	}(_react.Component);
+
+	exports.default = LoginPage;
 
 /***/ }
 /******/ ]);

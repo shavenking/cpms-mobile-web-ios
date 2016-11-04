@@ -1,4 +1,8 @@
-import {PROJECTS_RECEIVED, REGISTER_USER_SUCCESS} from '../constant/actionType'
+import {
+    PROJECTS_RECEIVED,
+    REGISTER_USER_SUCCESS,
+    LOGIN_USER_SUCCESS
+} from '../constant/actionType'
 
 const projects = (state = [], action) => {
     switch (action.type) {
@@ -15,6 +19,7 @@ const currentUser = (state = {
 }, action) => {
     switch (action.type) {
         case REGISTER_USER_SUCCESS:
+        case LOGIN_USER_SUCCESS:
             return Object.assign({}, state, {
                 id: action.id,
                 authToken: action.authToken
