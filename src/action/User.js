@@ -5,19 +5,28 @@ import {
     LOGIN_USER_SUCCESS
 } from '../constant/actionType'
 
-export const registerUser = ({email, password, passwordConfirmation}) => {
+export const registerUser = ({name, email, password, passwordConfirmation}) => {
     return (
         (dispatch) => {
-            // start spinner or something...
-
-            setTimeout(() => {
+            return window.fetch('/api/register', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    name: name,
+                    email: email,
+                    password: password,
+                    password_confirmation: passwordConfirmation
+                })
+            }).then((rep) => {
+                return rep.json()
+            }).then((data) => {
                 dispatch({
                     type: REGISTER_USER_SUCCESS,
-                    authToken: 'token',
-                    id: '1'
-                    // should fetch user profile as well
+                    authToken: data.token
                 })
-            }, 500)
+            })
         }
     )
 }
@@ -25,13 +34,23 @@ export const registerUser = ({email, password, passwordConfirmation}) => {
 export const loginUser = ({email, password}) => {
     return (
         (dispatch) => {
-            setTimeout(() => {
+            return window.fetch(`/api/login`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    email: email,
+                    password: password
+                })
+            }).then((rep) => {
+                return rep.json()
+            }).then((data) => {
                 dispatch({
                     type: LOGIN_USER_SUCCESS,
-                    authToken: 'token',
-                    id: '1'
+                    authToken: data.token
                 })
-            }, 500)
+            })
         }
     )
 }

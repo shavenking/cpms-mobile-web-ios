@@ -14,14 +14,12 @@ const projects = (state = [], action) => {
 }
 
 const currentUser = (state = {
-    id: '',
     authToken: ''
 }, action) => {
     switch (action.type) {
         case REGISTER_USER_SUCCESS:
         case LOGIN_USER_SUCCESS:
             return Object.assign({}, state, {
-                id: action.id,
                 authToken: action.authToken
             })
         default:

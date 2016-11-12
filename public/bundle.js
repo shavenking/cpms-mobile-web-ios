@@ -23149,7 +23149,6 @@
 
 	var currentUser = function currentUser() {
 	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {
-	        id: '',
 	        authToken: ''
 	    };
 	    var action = arguments[1];
@@ -23158,7 +23157,6 @@
 	        case _actionType.REGISTER_USER_SUCCESS:
 	        case _actionType.LOGIN_USER_SUCCESS:
 	            return Object.assign({}, state, {
-	                id: action.id,
 	                authToken: action.authToken
 	            });
 	        default:
@@ -29484,16 +29482,14 @@
 	        }
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = RegisterContainer.__proto__ || Object.getPrototypeOf(RegisterContainer)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnSubmit = function (_ref2) {
+	            var name = _ref2.name;
 	            var email = _ref2.email;
 	            var password = _ref2.password;
 	            var passwordConfirmation = _ref2.passwordConfirmation;
 
-	            _this.props.dispatch((0, _User.registerUser)({ email: email, password: password, passwordConfirmation: passwordConfirmation }));
-
-	            // fake .then action
-	            setTimeout(function () {
+	            _this.props.dispatch((0, _User.registerUser)({ name: name, email: email, password: password, passwordConfirmation: passwordConfirmation })).then(function () {
 	                _reactRouter.hashHistory.replace('/');
-	            }, 1000);
+	            });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 
@@ -29545,6 +29541,12 @@
 
 	        var _this = _possibleConstructorReturn(this, (RegisterPage.__proto__ || Object.getPrototypeOf(RegisterPage)).call(this, props));
 
+	        _this.handleNameChange = function (e) {
+	            _this.setState(_extends({}, _this.state, {
+	                name: e.target.value
+	            }));
+	        };
+
 	        _this.handleEmailChange = function (e) {
 	            _this.setState(_extends({}, _this.state, {
 	                email: e.target.value
@@ -29570,6 +29572,7 @@
 	        };
 
 	        _this.state = {
+	            name: '',
 	            email: '',
 	            password: '',
 	            passwordConfirmation: ''
@@ -29581,6 +29584,7 @@
 	        key: 'render',
 	        value: function render() {
 	            var _state = this.state;
+	            var name = _state.name;
 	            var email = _state.email;
 	            var password = _state.password;
 	            var passwordConfirmation = _state.passwordConfirmation;
@@ -29609,6 +29613,24 @@
 	                                _react2.default.createElement(
 	                                    'ul',
 	                                    null,
+	                                    _react2.default.createElement(
+	                                        'li',
+	                                        { className: 'item-content' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'item-inner' },
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-title label' },
+	                                                '\u540D\u7A31'
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-input' },
+	                                                _react2.default.createElement('input', { type: 'text', name: 'email', value: name, onChange: this.handleNameChange })
+	                                            )
+	                                        )
+	                                    ),
 	                                    _react2.default.createElement(
 	                                        'li',
 	                                        { className: 'item-content' },
@@ -29721,21 +29743,31 @@
 	var _actionType = __webpack_require__(198);
 
 	var registerUser = exports.registerUser = function registerUser(_ref) {
+	    var name = _ref.name;
 	    var email = _ref.email;
 	    var password = _ref.password;
 	    var passwordConfirmation = _ref.passwordConfirmation;
 
 	    return function (dispatch) {
-	        // start spinner or something...
-
-	        setTimeout(function () {
+	        return window.fetch('/api/register', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({
+	                name: name,
+	                email: email,
+	                password: password,
+	                password_confirmation: passwordConfirmation
+	            })
+	        }).then(function (rep) {
+	            return rep.json();
+	        }).then(function (data) {
 	            dispatch({
 	                type: _actionType.REGISTER_USER_SUCCESS,
-	                authToken: 'token',
-	                id: '1'
-	                // should fetch user profile as well
+	                authToken: data.token
 	            });
-	        }, 500);
+	        });
 	    };
 	};
 
@@ -29744,13 +29776,23 @@
 	    var password = _ref2.password;
 
 	    return function (dispatch) {
-	        setTimeout(function () {
+	        return window.fetch('/api/login', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json'
+	            },
+	            body: JSON.stringify({
+	                email: email,
+	                password: password
+	            })
+	        }).then(function (rep) {
+	            return rep.json();
+	        }).then(function (data) {
 	            dispatch({
 	                type: _actionType.LOGIN_USER_SUCCESS,
-	                authToken: 'token',
-	                id: '1'
+	                authToken: data.token
 	            });
-	        }, 500);
+	        });
 	    };
 	};
 
@@ -29806,12 +29848,9 @@
 	            var email = _ref2.email;
 	            var password = _ref2.password;
 
-	            _this.props.dispatch((0, _User.loginUser)({ email: email, password: password }));
-
-	            // fake .then action
-	            setTimeout(function () {
+	            _this.props.dispatch((0, _User.loginUser)({ email: email, password: password })).then(function () {
 	                _reactRouter.hashHistory.replace('/');
-	            }, 1000);
+	            });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
 

@@ -6,12 +6,11 @@ import { loginUser } from '../action/User'
 
 class LoginContainer extends Component {
     handleOnSubmit = ({email, password}) => {
-        this.props.dispatch(loginUser({email, password}))
-
-        // fake .then action
-        setTimeout(() => {
+        this.props.dispatch(
+            loginUser({email, password})
+        ).then(() => {
             hashHistory.replace('/')
-        }, 1000)
+        })
     }
 
     render() {

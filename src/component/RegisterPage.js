@@ -5,10 +5,18 @@ class RegisterPage extends Component {
     constructor(props) {
         super(props)
         this.state = {
+            name: '',
             email: '',
             password: '',
             passwordConfirmation: ''
         }
+    }
+
+    handleNameChange = (e) => {
+        this.setState({
+            ...this.state,
+            name: e.target.value
+        })
     }
 
     handleEmailChange = (e) => {
@@ -39,7 +47,7 @@ class RegisterPage extends Component {
     }
 
     render() {
-        const {email, password, passwordConfirmation} = this.state
+        const {name, email, password, passwordConfirmation} = this.state
 
         return (
             <div className="page">
@@ -49,6 +57,14 @@ class RegisterPage extends Component {
                         <form>
                             <div className="list-block">
                                 <ul>
+                                    <li className="item-content">
+                                        <div className="item-inner">
+                                            <div className="item-title label">名稱</div>
+                                            <div className="item-input">
+                                                <input type="text" name="email" value={name} onChange={this.handleNameChange} />
+                                            </div>
+                                        </div>
+                                    </li>
                                     <li className="item-content">
                                         <div className="item-inner">
                                             <div className="item-title label">E-Mail</div>

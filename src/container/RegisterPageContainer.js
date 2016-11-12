@@ -5,13 +5,12 @@ import { hashHistory } from 'react-router'
 import { registerUser } from '../action/User'
 
 class RegisterContainer extends Component {
-    handleOnSubmit = ({email, password, passwordConfirmation}) => {
-        this.props.dispatch(registerUser({email, password, passwordConfirmation}))
-
-        // fake .then action
-        setTimeout(() => {
+    handleOnSubmit = ({name, email, password, passwordConfirmation}) => {
+        this.props.dispatch(
+            registerUser({name, email, password, passwordConfirmation})
+        ).then(() => {
             hashHistory.replace('/')
-        }, 1000)
+        })
     }
 
     render() {
