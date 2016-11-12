@@ -3,12 +3,13 @@ services:
     nginx:
         image: nginx:1.11-alpine
         volumes:
-            - /mnt/mobile-web-ios/default.conf:/etc/nginx/conf.d/default.conf
-            - /mnt/mobile-web-ios:/usr/share/nginx/html
+            - ${MOBILEWEB_DIR}/default.conf:/etc/nginx/conf.d/default.conf
+            - ${MOBILEWEB_DIR}:/usr/share/nginx/html
         extra_hosts:
-            - backend:172.19.0.6
+            - backend: ${API_SERVER_IP}
         ports:
             - 8080:80
+
 networks:
     default:
         external:
