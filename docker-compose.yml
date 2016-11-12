@@ -6,7 +6,7 @@ services:
             - ${MOBILEWEB_DIR}/default.conf:/etc/nginx/conf.d/default.conf
             - ${MOBILEWEB_DIR}:/usr/share/nginx/html
         extra_hosts:
-            - backend: ${API_SERVER_IP}
+            - backend:${API_SERVER_IP}
         ports:
             - 8080:80
 
