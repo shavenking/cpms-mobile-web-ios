@@ -28947,7 +28947,7 @@
 
 	var _reactRedux = __webpack_require__(187);
 
-	var _project = __webpack_require__(264);
+	var _Project = __webpack_require__(275);
 
 	var _reactRouter = __webpack_require__(202);
 
@@ -28975,7 +28975,7 @@
 	    _createClass(ProjectsContainer, [{
 	        key: 'componentDidMount',
 	        value: function componentDidMount() {
-	            this.props.dispatch((0, _project.getAllProjects)());
+	            this.props.dispatch((0, _Project.getAllProjects)());
 	        }
 	    }, {
 	        key: 'render',
@@ -29048,30 +29048,7 @@
 	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProjectsContainer);
 
 /***/ },
-/* 264 */
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getAllProjects = undefined;
-
-	var _actionType = __webpack_require__(198);
-
-	var getAllProjects = exports.getAllProjects = function getAllProjects() {
-	    return function (dispatch) {
-	        setTimeout(function () {
-	            dispatch({
-	                type: _actionType.PROJECTS_RECEIVED,
-	                projects: [{ id: '1', name: 'A' }, { id: '2', name: 'B' }]
-	            });
-	        }, 500);
-	    };
-	};
-
-/***/ },
+/* 264 */,
 /* 265 */
 /***/ function(module, exports, __webpack_require__) {
 
@@ -30037,6 +30014,41 @@
 	}(_react.Component);
 
 	exports.default = LoginPage;
+
+/***/ },
+/* 275 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getAllProjects = undefined;
+
+	var _actionType = __webpack_require__(198);
+
+	var getAllProjects = exports.getAllProjects = function getAllProjects() {
+	    return function (dispatch, getState) {
+	        var authToken = getState().currentUser.authToken;
+
+
+	        return window.fetch('/api/projects', {
+	            method: 'GET',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Bearer ' + authToken
+	            }
+	        }).then(function (rep) {
+	            return rep.json();
+	        }).then(function (data) {
+	            dispatch({
+	                type: _actionType.PROJECTS_RECEIVED,
+	                projects: data.projects
+	            });
+	        });
+	    };
+	};
 
 /***/ }
 /******/ ]);

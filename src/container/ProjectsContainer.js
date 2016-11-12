@@ -1,6 +1,6 @@
 import React, { Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
-import { getAllProjects } from '../action/project'
+import { getAllProjects } from '../action/Project'
 import { Link } from 'react-router'
 import Navbar from '../component/Navbar'
 
