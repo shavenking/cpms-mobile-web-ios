@@ -10,10 +10,6 @@ class ProjectsContainer extends Component {
     }
 
     render() {
-        if (!this.props.projects.length) {
-            return <p>nothing</p>
-        }
-
         return (
             <div className="page">
                 <div className="page-content">

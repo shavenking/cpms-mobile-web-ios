@@ -29907,14 +29907,6 @@
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            if (!this.props.projects.length) {
-	                return _react2.default.createElement(
-	                    'p',
-	                    null,
-	                    'nothing'
-	                );
-	            }
-
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'page' },
@@ -32367,13 +32359,13 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
-	var _ConstructionDailyWorkCreate = __webpack_require__(292);
+	var _ConstructionDailyWorkCreate = __webpack_require__(291);
 
 	var _ConstructionDailyWorkCreate2 = _interopRequireDefault(_ConstructionDailyWorkCreate);
 
 	var _ConstructionDaily = __webpack_require__(285);
 
-	var _Work = __webpack_require__(291);
+	var _Work = __webpack_require__(292);
 
 	var _formSerialize = __webpack_require__(269);
 
@@ -32456,50 +32448,6 @@
 
 /***/ },
 /* 291 */
-/***/ function(module, exports) {
-
-	'use strict';
-
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	var getWorkList = exports.getWorkList = function getWorkList() {
-	    return function (dispatch, getState) {
-	        var authToken = getState().currentUser.authToken;
-
-
-	        return window.fetch('/api/works', {
-	            method: 'GET',
-	            headers: {
-	                'Content-Type': 'application/json',
-	                'Authorization': 'Bearer ' + authToken
-	            }
-	        }).then(function (rep) {
-	            return rep.json();
-	        });
-	    };
-	};
-
-	var createWork = exports.createWork = function createWork(formData) {
-	    return function (dispatch, getState) {
-	        var authToken = getState().currentUser.authToken;
-
-
-	        return window.fetch('/api/works', {
-	            method: 'POST',
-	            headers: {
-	                'Content-Type': 'application/json',
-	                'Authorization': 'Bearer ' + authToken
-	            },
-	            body: JSON.stringify(formData)
-	        }).then(function (rep) {
-	            return rep.json();
-	        });
-	    };
-	};
-
-/***/ },
-/* 292 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -32681,6 +32629,50 @@
 	}(_react.Component);
 
 	exports.default = (0, _reactRedux.connect)()(ConstructionDailyWorkCreate);
+
+/***/ },
+/* 292 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var getWorkList = exports.getWorkList = function getWorkList() {
+	    return function (dispatch, getState) {
+	        var authToken = getState().currentUser.authToken;
+
+
+	        return window.fetch('/api/works', {
+	            method: 'GET',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Bearer ' + authToken
+	            }
+	        }).then(function (rep) {
+	            return rep.json();
+	        });
+	    };
+	};
+
+	var createWork = exports.createWork = function createWork(formData) {
+	    return function (dispatch, getState) {
+	        var authToken = getState().currentUser.authToken;
+
+
+	        return window.fetch('/api/works', {
+	            method: 'POST',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Bearer ' + authToken
+	            },
+	            body: JSON.stringify(formData)
+	        }).then(function (rep) {
+	            return rep.json();
+	        });
+	    };
+	};
 
 /***/ }
 /******/ ]);
