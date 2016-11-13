@@ -31318,8 +31318,10 @@
 
 	        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = ProjectCreateContainer.__proto__ || Object.getPrototypeOf(ProjectCreateContainer)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnSubmit = function (form) {
 	            _this.props.dispatch((0, _Project.createProject)(form)).then(function (project) {
-	                console.log(project);
-	                _reactRouter.hashHistory.replace('/projects/' + project.id);
+	                // 新增完專案後，先更新再重導向
+	                _this.props.dispatch((0, _Project.getAllProjects)()).then(function () {
+	                    _reactRouter.hashHistory.replace('/projects/' + project.id);
+	                });
 	            });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }

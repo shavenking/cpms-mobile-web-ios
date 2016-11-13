@@ -2,15 +2,17 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import ProjectCreate from '../component/ProjectCreate'
 import { hashHistory } from 'react-router'
-import { createProject } from '../action/Project'
+import { getAllProjects, createProject } from '../action/Project'
 
 class ProjectCreateContainer extends Component {
     handleOnSubmit = (form) => {
         this.props.dispatch(
             createProject(form)
         ).then(project => {
-            console.log(project)
-            hashHistory.replace(`/projects/${project.id}`)
+            // 新增完專案後，先更新再重導向
+            this.props.dispatch(getAllProjects()).then(() => {
+                hashHistory.replace(`/projects/${project.id}`)
+            })
         })
     }
 
