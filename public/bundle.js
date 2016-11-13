@@ -1048,6 +1048,14 @@
 
 	var _ProjectCreateContainer2 = _interopRequireDefault(_ProjectCreateContainer);
 
+	var _ProjectHomeContainer = __webpack_require__(282);
+
+	var _ProjectHomeContainer2 = _interopRequireDefault(_ProjectHomeContainer);
+
+	var _ConstructionDailyListContainer = __webpack_require__(283);
+
+	var _ConstructionDailyListContainer2 = _interopRequireDefault(_ConstructionDailyListContainer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var middleware = [_reduxThunk2.default];
@@ -1083,7 +1091,8 @@
 	                { path: 'projects', onEnter: UserAuthenticated },
 	                _react2.default.createElement(_reactRouter.IndexRoute, { component: _ProjectsContainer2.default }),
 	                _react2.default.createElement(_reactRouter.Route, { path: 'create', component: _ProjectCreateContainer2.default }),
-	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId', component: _ProjectHome2.default })
+	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId', component: _ProjectHomeContainer2.default }),
+	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies', component: _ConstructionDailyListContainer2.default })
 	            ),
 	            _react2.default.createElement(_reactRouter.Route, { path: 'register', component: _RegisterPageContainer2.default }),
 	            _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LoginPageContainer2.default })
@@ -23940,7 +23949,19 @@
 	    }
 	};
 
-	exports.default = { projects: projects, currentUser: currentUser };
+	var constructionDailies = function constructionDailies() {
+	    var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+	    var action = arguments[1];
+
+	    switch (action.type) {
+	        case _actionType.CONSTRUCTION_DAILY_LIST_RECEIVED:
+	            return action.constructionDailies;
+	        default:
+	            return state;
+	    }
+	};
+
+	exports.default = { projects: projects, currentUser: currentUser, constructionDailies: constructionDailies };
 
 /***/ },
 /* 202 */
@@ -23960,6 +23981,9 @@
 	var REGISTER_USER_FAILED = exports.REGISTER_USER_FAILED = 'REGISTER_USER_FAILED';
 
 	var LOGIN_USER_SUCCESS = exports.LOGIN_USER_SUCCESS = 'LOGIN_USER_SUCCESS';
+
+	// 施工日報表
+	var CONSTRUCTION_DAILY_LIST_RECEIVED = exports.CONSTRUCTION_DAILY_LIST_RECEIVED = 'CONSTRUCTION_DAILY_LIST_RECEIVED';
 
 /***/ },
 /* 203 */
@@ -24044,6 +24068,8 @@
 
 	var _Navbar2 = _interopRequireDefault(_Navbar);
 
+	var _reactRouter = __webpack_require__(206);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -24064,13 +24090,92 @@
 	    _createClass(ProjectHome, [{
 	        key: 'render',
 	        value: function render() {
+	            var project = this.props.project;
+
 	            return _react2.default.createElement(
 	                'div',
 	                { className: 'page' },
 	                _react2.default.createElement(
 	                    'div',
 	                    { className: 'page-content' },
-	                    _react2.default.createElement(_Navbar2.default, { prevLink: '/', title: '\u5C08\u6848\u9996\u9801' })
+	                    _react2.default.createElement(_Navbar2.default, { prevLink: '/', title: '\u5C08\u6848\u9996\u9801' }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'content-block-title' },
+	                        '\u5C08\u6848\u57FA\u672C\u8CC7\u6599'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'card' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'card-content' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'card-content-inner' },
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    '\u5C08\u6848\u540D\u7A31\uFF1A',
+	                                    project.name
+	                                ),
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    '\u627F\u652C\u5EE0\u5546\uFF1A',
+	                                    project.contractor
+	                                ),
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    '\u6838\u5B9A\u65E5\u671F\uFF1A',
+	                                    project.total_day,
+	                                    ' \u5929'
+	                                ),
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    '\u958B\u5DE5\u65E5\u671F\uFF1A',
+	                                    project.start_date
+	                                )
+	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'content-block-title' },
+	                        '\u5916\u90E8\u4F5C\u696D'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'list-block' },
+	                        _react2.default.createElement(
+	                            'ul',
+	                            null,
+	                            _react2.default.createElement(
+	                                'li',
+	                                null,
+	                                _react2.default.createElement(
+	                                    _reactRouter.Link,
+	                                    { to: '/projects/' + project.id + '/construction-dailies', className: 'item-link item-content' },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'item-inner' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'item-title' },
+	                                            '\u65BD\u5DE5\u65E5\u5831\u8868'
+	                                        ),
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'item-after' },
+	                                            '\u9032\u5165'
+	                                        )
+	                                    )
+	                                )
+	                            )
+	                        )
+	                    )
 	                )
 	            );
 	        }
@@ -31397,6 +31502,299 @@
 	}(_react.Component);
 
 	exports.default = (0, _reactRedux.connect)()(ProjectCreate);
+
+/***/ },
+/* 282 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(191);
+
+	var _Project = __webpack_require__(268);
+
+	var _reactRouter = __webpack_require__(206);
+
+	var _Navbar = __webpack_require__(205);
+
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+
+	var _ProjectHome = __webpack_require__(204);
+
+	var _ProjectHome2 = _interopRequireDefault(_ProjectHome);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ProjectHomeContainer = function (_Component) {
+	    _inherits(ProjectHomeContainer, _Component);
+
+	    function ProjectHomeContainer() {
+	        _classCallCheck(this, ProjectHomeContainer);
+
+	        return _possibleConstructorReturn(this, (ProjectHomeContainer.__proto__ || Object.getPrototypeOf(ProjectHomeContainer)).apply(this, arguments));
+	    }
+
+	    _createClass(ProjectHomeContainer, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.props.dispatch((0, _Project.getAllProjects)());
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var project = this.props.projects.find(function (candidate) {
+	                return candidate.id == _this2.props.params.projectId;
+	            });
+
+	            return _react2.default.createElement(_ProjectHome2.default, { project: project });
+	        }
+	    }]);
+
+	    return ProjectHomeContainer;
+	}(_react.Component);
+
+	var mapStateToProps = function mapStateToProps(_ref) {
+	    var projects = _ref.projects;
+
+	    return { projects: projects };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ProjectHomeContainer);
+
+/***/ },
+/* 283 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(191);
+
+	var _Project = __webpack_require__(268);
+
+	var _reactRouter = __webpack_require__(206);
+
+	var _Navbar = __webpack_require__(205);
+
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+
+	var _ConstructionDailyList = __webpack_require__(284);
+
+	var _ConstructionDailyList2 = _interopRequireDefault(_ConstructionDailyList);
+
+	var _ConstructionDaily = __webpack_require__(285);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ConstructionDailyListContainer = function (_Component) {
+	    _inherits(ConstructionDailyListContainer, _Component);
+
+	    function ConstructionDailyListContainer() {
+	        _classCallCheck(this, ConstructionDailyListContainer);
+
+	        return _possibleConstructorReturn(this, (ConstructionDailyListContainer.__proto__ || Object.getPrototypeOf(ConstructionDailyListContainer)).apply(this, arguments));
+	    }
+
+	    _createClass(ConstructionDailyListContainer, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.props.dispatch((0, _ConstructionDaily.getConstructionDailyList)(this.props.params.projectId));
+	            this.props.dispatch((0, _Project.getAllProjects)());
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var project = this.props.projects.find(function (candidate) {
+	                return candidate.id == _this2.props.params.projectId;
+	            });
+
+	            return _react2.default.createElement(_ConstructionDailyList2.default, { list: this.props.constructionDailies, project: project });
+	        }
+	    }]);
+
+	    return ConstructionDailyListContainer;
+	}(_react.Component);
+
+	var mapStateToProps = function mapStateToProps(_ref) {
+	    var constructionDailies = _ref.constructionDailies;
+	    var projects = _ref.projects;
+
+	    return { constructionDailies: constructionDailies, projects: projects };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ConstructionDailyListContainer);
+
+/***/ },
+/* 284 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(191);
+
+	var _Navbar = __webpack_require__(205);
+
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+
+	var _reactRouter = __webpack_require__(206);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ConstructionDailyList = function (_Component) {
+	    _inherits(ConstructionDailyList, _Component);
+
+	    function ConstructionDailyList() {
+	        _classCallCheck(this, ConstructionDailyList);
+
+	        return _possibleConstructorReturn(this, (ConstructionDailyList.__proto__ || Object.getPrototypeOf(ConstructionDailyList)).apply(this, arguments));
+	    }
+
+	    _createClass(ConstructionDailyList, [{
+	        key: 'render',
+	        value: function render() {
+	            var list = this.props.list;
+	            var project = this.props.project;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'page' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'page-content' },
+	                    _react2.default.createElement(_Navbar2.default, { title: '\u65BD\u5DE5\u65E5\u5831\u5217\u8868', prevLink: '/projects/' + project.id, createLink: '/projects/' + project.id + '/construction-dailies/create' }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'list-block' },
+	                        _react2.default.createElement(
+	                            'ul',
+	                            null,
+	                            list.map(function (constructionDaily) {
+	                                return _react2.default.createElement(
+	                                    'li',
+	                                    { key: constructionDaily.id },
+	                                    _react2.default.createElement(
+	                                        _reactRouter.Link,
+	                                        { to: '/projects/' + project.id + '/construction-dailies/' + constructionDaily.id, className: 'item-link item-content' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'item-inner' },
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-title' },
+	                                                constructionDaily.work_date
+	                                            ),
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-after' },
+	                                                '\u9032\u5165'
+	                                            )
+	                                        )
+	                                    )
+	                                );
+	                            })
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ConstructionDailyList;
+	}(_react.Component);
+
+	exports.default = (0, _reactRedux.connect)()(ConstructionDailyList);
+
+/***/ },
+/* 285 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.getConstructionDailyList = undefined;
+
+	var _actionType = __webpack_require__(202);
+
+	var _formSerialize = __webpack_require__(269);
+
+	var _formSerialize2 = _interopRequireDefault(_formSerialize);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getConstructionDailyList = exports.getConstructionDailyList = function getConstructionDailyList(projectId) {
+	    return function (dispatch, getState) {
+	        var authToken = getState().currentUser.authToken;
+
+
+	        return window.fetch('/api/projects/' + projectId + '/construction-dailies', {
+	            method: 'GET',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Bearer ' + authToken
+	            }
+	        }).then(function (rep) {
+	            return rep.json();
+	        }).then(function (data) {
+	            dispatch({
+	                type: _actionType.CONSTRUCTION_DAILY_LIST_RECEIVED,
+	                constructionDailies: data.constructionDailies
+	            });
+	        });
+	    };
+	};
 
 /***/ }
 /******/ ]);

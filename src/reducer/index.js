@@ -2,7 +2,8 @@ import {
     PROJECTS_RECEIVED,
     PROJECT_CREATED,
     REGISTER_USER_SUCCESS,
-    LOGIN_USER_SUCCESS
+    LOGIN_USER_SUCCESS,
+    CONSTRUCTION_DAILY_LIST_RECEIVED
 } from '../constant/actionType'
 
 const projects = (state = [], action) => {
@@ -29,4 +30,13 @@ const currentUser = (state = {
     }
 }
 
-export default { projects, currentUser }
+const constructionDailies = (state = [], action) => {
+    switch (action.type) {
+        case CONSTRUCTION_DAILY_LIST_RECEIVED:
+            return action.constructionDailies
+        default:
+            return state
+    }
+}
+
+export default { projects, currentUser, constructionDailies }
