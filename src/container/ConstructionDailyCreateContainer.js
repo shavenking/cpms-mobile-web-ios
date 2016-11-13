@@ -4,7 +4,7 @@ import { getAllProjects } from '../action/Project'
 import { Link } from 'react-router'
 import Navbar from '../component/Navbar'
 import ConstructionDailyCreate from '../component/ConstructionDailyCreate'
-import { createConstructionDaily } from '../action/ConstructionDaily'
+import { getConstructionDailyList, createConstructionDaily } from '../action/ConstructionDaily'
 import { hashHistory } from 'react-router'
 
 class ConstructionDailyCreateContainer extends Component {
@@ -14,7 +14,10 @@ class ConstructionDailyCreateContainer extends Component {
 
     handleOnSubmit = (form) => {
         this.props.dispatch(createConstructionDaily(this.props.params.projectId, form)).then(({constructionDaily}) => {
-            hashHistory.replace(`/projects/${this.props.params.projectId}/construction-dailies/${constructionDaily.id}`)
+            // 重新抓施工日報的列表，抓完再導向
+            this.props.dispatch(getConstructionDailyList(this.props.params.projectId)).then(() => {
+                hashHistory.replace(`/projects/${this.props.params.projectId}/construction-dailies/${constructionDaily.id}`)
+            })
         })
     }
 

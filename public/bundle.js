@@ -1060,6 +1060,10 @@
 
 	var _ConstructionDailyCreateContainer2 = _interopRequireDefault(_ConstructionDailyCreateContainer);
 
+	var _ConstructionDailyContainer = __webpack_require__(288);
+
+	var _ConstructionDailyContainer2 = _interopRequireDefault(_ConstructionDailyContainer);
+
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var middleware = [_reduxThunk2.default];
@@ -1097,7 +1101,8 @@
 	                _react2.default.createElement(_reactRouter.Route, { path: 'create', component: _ProjectCreateContainer2.default }),
 	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId', component: _ProjectHomeContainer2.default }),
 	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies', component: _ConstructionDailyListContainer2.default }),
-	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies/create', component: _ConstructionDailyCreateContainer2.default })
+	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies/create', component: _ConstructionDailyCreateContainer2.default }),
+	                _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies/:constructionDailyId', component: _ConstructionDailyContainer2.default })
 	            ),
 	            _react2.default.createElement(_reactRouter.Route, { path: 'register', component: _RegisterPageContainer2.default }),
 	            _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _LoginPageContainer2.default })
@@ -31899,7 +31904,10 @@
 	            _this.props.dispatch((0, _ConstructionDaily.createConstructionDaily)(_this.props.params.projectId, form)).then(function (_ref2) {
 	                var constructionDaily = _ref2.constructionDaily;
 
-	                _reactRouter.hashHistory.replace('/projects/' + _this.props.params.projectId + '/construction-dailies/' + constructionDaily.id);
+	                // 重新抓施工日報的列表，抓完再導向
+	                _this.props.dispatch((0, _ConstructionDaily.getConstructionDailyList)(_this.props.params.projectId)).then(function () {
+	                    _reactRouter.hashHistory.replace('/projects/' + _this.props.params.projectId + '/construction-dailies/' + constructionDaily.id);
+	                });
 	            });
 	        }, _temp), _possibleConstructorReturn(_this, _ret);
 	    }
@@ -32050,6 +32058,170 @@
 	}(_react.Component);
 
 	exports.default = (0, _reactRedux.connect)()(ConstructionDailyCreate);
+
+/***/ },
+/* 288 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(191);
+
+	var _ConstructionDaily = __webpack_require__(289);
+
+	var _ConstructionDaily2 = _interopRequireDefault(_ConstructionDaily);
+
+	var _ConstructionDaily3 = __webpack_require__(285);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ConstructionDailyContainer = function (_Component) {
+	    _inherits(ConstructionDailyContainer, _Component);
+
+	    function ConstructionDailyContainer() {
+	        _classCallCheck(this, ConstructionDailyContainer);
+
+	        return _possibleConstructorReturn(this, (ConstructionDailyContainer.__proto__ || Object.getPrototypeOf(ConstructionDailyContainer)).apply(this, arguments));
+	    }
+
+	    _createClass(ConstructionDailyContainer, [{
+	        key: 'render',
+	        value: function render() {
+	            var _this2 = this;
+
+	            var constructionDaily = this.props.constructionDailies.find(function (candidate) {
+	                return candidate.id == _this2.props.params.constructionDailyId;
+	            });
+
+	            return _react2.default.createElement(_ConstructionDaily2.default, { constructionDaily: constructionDaily, projectId: this.props.params.projectId });
+	        }
+	    }]);
+
+	    return ConstructionDailyContainer;
+	}(_react.Component);
+
+	var mapStateToProps = function mapStateToProps(_ref) {
+	    var constructionDailies = _ref.constructionDailies;
+
+	    return { constructionDailies: constructionDailies };
+	};
+
+	exports.default = (0, _reactRedux.connect)(mapStateToProps)(ConstructionDailyContainer);
+
+/***/ },
+/* 289 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+	var _react = __webpack_require__(6);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	var _reactRedux = __webpack_require__(191);
+
+	var _Navbar = __webpack_require__(205);
+
+	var _Navbar2 = _interopRequireDefault(_Navbar);
+
+	var _reactRouter = __webpack_require__(206);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+	var ConstructionDaily = function (_Component) {
+	    _inherits(ConstructionDaily, _Component);
+
+	    function ConstructionDaily() {
+	        _classCallCheck(this, ConstructionDaily);
+
+	        return _possibleConstructorReturn(this, (ConstructionDaily.__proto__ || Object.getPrototypeOf(ConstructionDaily)).apply(this, arguments));
+	    }
+
+	    _createClass(ConstructionDaily, [{
+	        key: 'render',
+	        value: function render() {
+	            var constructionDaily = this.props.constructionDaily;
+	            var projectId = this.props.projectId;
+
+	            return _react2.default.createElement(
+	                'div',
+	                { className: 'page' },
+	                _react2.default.createElement(
+	                    'div',
+	                    { className: 'page-content' },
+	                    _react2.default.createElement(_Navbar2.default, { prevLink: '/projects/' + projectId + '/construction-dailies', title: '\u65BD\u5DE5\u65E5\u5831\u8868' }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'content-block-title' },
+	                        '\u65BD\u5DE5\u65E5\u5831\u57FA\u672C\u8CC7\u6599'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'card' },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { className: 'card-content' },
+	                            _react2.default.createElement(
+	                                'div',
+	                                { className: 'card-content-inner' },
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    '\u65BD\u5DE5\u65E5\u671F\uFF1A',
+	                                    constructionDaily.work_date
+	                                ),
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    '\u4E0A\u5348\u5929\u6C23\uFF1A',
+	                                    constructionDaily.weather_morning
+	                                ),
+	                                _react2.default.createElement(
+	                                    'p',
+	                                    null,
+	                                    '\u4E0B\u5348\u5929\u6C23\uFF1A',
+	                                    constructionDaily.weather_afternoon
+	                                )
+	                            )
+	                        )
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+
+	    return ConstructionDaily;
+	}(_react.Component);
+
+	exports.default = (0, _reactRedux.connect)()(ConstructionDaily);
 
 /***/ }
 /******/ ]);
