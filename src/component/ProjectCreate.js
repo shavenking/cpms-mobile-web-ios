@@ -32,22 +32,22 @@ class ProjectCreate extends Component {
                     <Navbar prevLink="/projects" title="新增專案" onSubmit={this.handleOnSubmit} />
                     <form method="POST" action="#" className="list-block" ref={(form) => this.form = form}>
                         <ul>
-                            <li>
+                            <li className="align-top">
                                 <div className="item-content">
                                     <div className="item-inner">
                                         <div className="item-title label">工程名稱</div>
                                         <div className="item-input">
-                                            <input type="text" name="name" placeholder="工程名稱" />
+                                            <textarea name="name" rows="2" placeholder="工程名稱"></textarea>
                                         </div>
                                     </div>
                                 </div>
                             </li>
-                            <li>
+                            <li className="align-top">
                                 <div className="item-content">
                                     <div className="item-inner">
                                         <div className="item-title label">承攬廠商</div>
                                         <div className="item-input">
-                                            <input type="text" name="contractor" placeholder="承攬廠商" />
+                                            <textarea name="contractor" rows="2" placeholder="承攬廠商"></textarea>
                                         </div>
                                     </div>
                                 </div>

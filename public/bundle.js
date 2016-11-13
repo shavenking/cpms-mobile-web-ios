@@ -31300,7 +31300,7 @@
 	                            null,
 	                            _react2.default.createElement(
 	                                'li',
-	                                null,
+	                                { className: 'align-top' },
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'item-content' },
@@ -31315,14 +31315,14 @@
 	                                        _react2.default.createElement(
 	                                            'div',
 	                                            { className: 'item-input' },
-	                                            _react2.default.createElement('input', { type: 'text', name: 'name', placeholder: '\u5DE5\u7A0B\u540D\u7A31' })
+	                                            _react2.default.createElement('textarea', { name: 'name', rows: '2', placeholder: '\u5DE5\u7A0B\u540D\u7A31' })
 	                                        )
 	                                    )
 	                                )
 	                            ),
 	                            _react2.default.createElement(
 	                                'li',
-	                                null,
+	                                { className: 'align-top' },
 	                                _react2.default.createElement(
 	                                    'div',
 	                                    { className: 'item-content' },
@@ -31337,7 +31337,7 @@
 	                                        _react2.default.createElement(
 	                                            'div',
 	                                            { className: 'item-input' },
-	                                            _react2.default.createElement('input', { type: 'text', name: 'contractor', placeholder: '\u627F\u652C\u5EE0\u5546' })
+	                                            _react2.default.createElement('textarea', { name: 'contractor', rows: '2', placeholder: '\u627F\u652C\u5EE0\u5546' })
 	                                        )
 	                                    )
 	                                )
