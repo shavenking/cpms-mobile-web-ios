@@ -31780,7 +31780,7 @@
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.createConstructionDaily = exports.getConstructionDailyList = undefined;
+	exports.createConstructionDaily = exports.getConstructionDailyList = exports.getWorksByConstructionDaily = undefined;
 
 	var _actionType = __webpack_require__(202);
 
@@ -31789,6 +31789,25 @@
 	var _formSerialize2 = _interopRequireDefault(_formSerialize);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var getWorksByConstructionDaily = exports.getWorksByConstructionDaily = function getWorksByConstructionDaily(projectId, constructionDailyId) {
+	    return function (dispatch, getState) {
+	        var authToken = getState().currentUser.authToken;
+
+
+	        return window.fetch('/api/projects/' + projectId + '/construction-dailies/' + constructionDailyId + '/works', {
+	            method: 'GET',
+	            headers: {
+	                'Content-Type': 'application/json',
+	                'Authorization': 'Bearer ' + authToken
+	            }
+	        }).then(function (rep) {
+	            return rep.json();
+	        }).then(function (data) {
+	            return data;
+	        });
+	    };
+	};
 
 	var getConstructionDailyList = exports.getConstructionDailyList = function getConstructionDailyList(projectId) {
 	    return function (dispatch, getState) {
@@ -32096,30 +32115,50 @@
 	var ConstructionDailyContainer = function (_Component) {
 	    _inherits(ConstructionDailyContainer, _Component);
 
-	    function ConstructionDailyContainer() {
+	    function ConstructionDailyContainer(props) {
 	        _classCallCheck(this, ConstructionDailyContainer);
 
-	        return _possibleConstructorReturn(this, (ConstructionDailyContainer.__proto__ || Object.getPrototypeOf(ConstructionDailyContainer)).apply(this, arguments));
+	        var _this = _possibleConstructorReturn(this, (ConstructionDailyContainer.__proto__ || Object.getPrototypeOf(ConstructionDailyContainer)).call(this, props));
+
+	        _this.state = {
+	            constructionDaily: {},
+	            works: []
+	        };
+	        return _this;
 	    }
 
 	    _createClass(ConstructionDailyContainer, [{
-	        key: 'render',
-	        value: function render() {
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
 	            var _this2 = this;
 
 	            var constructionDaily = this.props.constructionDailies.find(function (candidate) {
 	                return candidate.id == _this2.props.params.constructionDailyId;
 	            });
 
-	            return _react2.default.createElement(_ConstructionDaily2.default, { constructionDaily: constructionDaily, projectId: this.props.params.projectId });
+	            this.setState({ constructionDaily: constructionDaily });
+
+	            this.props.dispatch((0, _ConstructionDaily3.getWorksByConstructionDaily)(this.props.params.projectId, constructionDaily.id)).then(function (_ref) {
+	                var works = _ref.works;
+
+	                _this2.setState({ works: works });
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var constructionDaily = this.state.constructionDaily;
+	            var works = this.state.works;
+
+	            return _react2.default.createElement(_ConstructionDaily2.default, { works: works, constructionDaily: constructionDaily, projectId: this.props.params.projectId });
 	        }
 	    }]);
 
 	    return ConstructionDailyContainer;
 	}(_react.Component);
 
-	var mapStateToProps = function mapStateToProps(_ref) {
-	    var constructionDailies = _ref.constructionDailies;
+	var mapStateToProps = function mapStateToProps(_ref2) {
+	    var constructionDailies = _ref2.constructionDailies;
 
 	    return { constructionDailies: constructionDailies };
 	};
@@ -32172,6 +32211,7 @@
 	        value: function render() {
 	            var constructionDaily = this.props.constructionDaily;
 	            var projectId = this.props.projectId;
+	            var works = this.props.works;
 
 	            return _react2.default.createElement(
 	                'div',
@@ -32213,6 +32253,50 @@
 	                                    constructionDaily.weather_afternoon
 	                                )
 	                            )
+	                        )
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'content-block-title' },
+	                        '\u4ECA\u65E5\u65BD\u5DE5\u5DE5\u9805'
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { className: 'list-block media-list' },
+	                        _react2.default.createElement(
+	                            'ul',
+	                            null,
+	                            works.map(function (work) {
+	                                return _react2.default.createElement(
+	                                    'li',
+	                                    { key: work.id },
+	                                    _react2.default.createElement(
+	                                        'div',
+	                                        { className: 'item-content' },
+	                                        _react2.default.createElement(
+	                                            'div',
+	                                            { className: 'item-inner' },
+	                                            _react2.default.createElement(
+	                                                'div',
+	                                                { className: 'item-title-row' },
+	                                                _react2.default.createElement(
+	                                                    'div',
+	                                                    { className: 'item-title' },
+	                                                    work.name
+	                                                ),
+	                                                _react2.default.createElement(
+	                                                    'div',
+	                                                    { className: 'item-after' },
+	                                                    work.amount,
+	                                                    '\uFF08',
+	                                                    work.unit_name,
+	                                                    '\uFF09'
+	                                                )
+	                                            )
+	                                        )
+	                                    )
+	                                );
+	                            })
 	                        )
 	                    )
 	                )
