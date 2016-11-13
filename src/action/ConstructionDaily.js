@@ -78,3 +78,22 @@ export const createConstructionDaily = (projectId, form) => {
         }
     )
 }
+
+export const createConstructionDailyWork = (projectId, constructionDailyId, formData) => {
+    return (
+        (dispatch, getState) => {
+            const {authToken} = getState().currentUser
+
+            return window.fetch(`/api/projects/${projectId}/construction-dailies/${constructionDailyId}/works`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${authToken}`
+                },
+                body: JSON.stringify(formData)
+            }).then((rep) => {
+                return rep.json()
+            })
+        }
+    )
+}

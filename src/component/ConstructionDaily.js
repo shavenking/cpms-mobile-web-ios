@@ -41,6 +41,9 @@ class ConstructionDaily extends Component {
                                     </div>
                                 </li>
                             ))}
+                            <li>
+                                <Link to={`/projects/${projectId}/construction-dailies/${constructionDaily.id}/works/create`} className="item-link list-button">新增今日施工工項</Link>
+                            </li>
                         </ul>
                     </div>
                 </div>

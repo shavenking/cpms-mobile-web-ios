@@ -16,6 +16,7 @@ import ProjectHomeContainer from './container/ProjectHomeContainer'
 import ConstructionDailyListContainer from './container/ConstructionDailyListContainer'
 import ConstructionDailyCreateContainer from './container/ConstructionDailyCreateContainer'
 import ConstructionDailyContainer from './container/ConstructionDailyContainer'
+import ConstructionDailyWorkCreateContainer from './container/ConstructionDailyWorkCreateContainer'
 
 const middleware = [thunk];
 
@@ -52,6 +53,7 @@ render(
                     <Route path=":projectId/construction-dailies" component={ConstructionDailyListContainer} />
                     <Route path=":projectId/construction-dailies/create" component={ConstructionDailyCreateContainer} />
                     <Route path=":projectId/construction-dailies/:constructionDailyId" component={ConstructionDailyContainer} />
+                    <Route path=":projectId/construction-dailies/:constructionDailyId/works/create" component={ConstructionDailyWorkCreateContainer} />
                 </Route>
                 <Route path="register" component={RegisterPageContainer} />
                 <Route path="login" component={LoginPageContainer} />
