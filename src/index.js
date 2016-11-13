@@ -11,6 +11,7 @@ import ProjectsContainer from './container/ProjectsContainer'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
 import RegisterPageContainer from './container/RegisterPageContainer'
 import LoginPageContainer from './container/LoginPageContainer'
+import ProjectCreateContainer from './container/ProjectCreateContainer'
 
 const middleware = [thunk];
 
@@ -40,6 +41,7 @@ render(
                 <IndexRedirect to="projects" />
                 <Route path="projects" onEnter={UserAuthenticated}>
                     <IndexRoute component={ProjectsContainer} />
+                    <Route path="create" component={ProjectCreateContainer} />
                     <Route path=":projectId" component={ProjectHome} />
                 </Route>
                 <Route path="register" component={RegisterPageContainer} />

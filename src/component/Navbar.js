@@ -22,11 +22,29 @@ class Navbar extends Component {
             )
         }
 
+        let nextLink = ''
+        if (this.props.createLink) {
+            nextLink = (
+                <div className="right">
+                    <Link to={this.props.createLink} className="link">新增</Link>
+                </div>
+            )
+        }
+
+        if (this.props.onSubmit) {
+            nextLink = (
+                <div className="right">
+                    <a href="#" className="link" onClick={this.props.onSubmit}>送出</a>
+                </div>
+            )
+        }
+
         return (
             <div className="navbar">
                 <div className="navbar-inner">
                     {prevLink}
                     <div className="center">{this.props.title}</div>
+                    {nextLink}
                 </div>
             </div>
         )

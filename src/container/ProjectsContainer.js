@@ -17,7 +17,7 @@ class ProjectsContainer extends Component {
         return (
             <div className="page">
                 <div className="page-content">
-                    <Navbar title="選擇專案" />
+                    <Navbar title="選擇專案" createLink="/projects/create" />
                     <div className="list-block">
                         <ul>
                             {this.props.projects.map(project => (

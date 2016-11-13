@@ -1,4 +1,5 @@
 export const PROJECTS_RECEIVED = 'PROJECTS_RECEIVED'
+export const PROJECT_CREATED = 'PROJECT_CREATED'
 
 // Register User
 export const REGISTER_USER = 'REGISTER_USER'

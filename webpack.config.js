@@ -1,5 +1,5 @@
 module.exports = {
-    entry: './src/index.js',
+    entry: ['promise-polyfill', 'whatwg-fetch', './src/index.js'],
     output: {
         filename: './public/bundle.js'
     },
