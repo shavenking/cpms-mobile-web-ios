@@ -28,7 +28,7 @@ const UserAuthenticated = (nextState, replace, callback) => {
     const state = store.getState()
 
     if (!state.currentUser || !state.currentUser.authToken) {
-        replace('/register')
+        replace('/login')
     }
 
     callback()
