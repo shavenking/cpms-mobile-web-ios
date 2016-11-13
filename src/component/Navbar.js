@@ -32,9 +32,11 @@ class Navbar extends Component {
         }
 
         if (this.props.onSubmit) {
+            const onSubmitText = this.props.onSubmitText ? this.props.onSubmitText : '送出'
+
             nextLink = (
                 <div className="right">
-                    <a href="#" className="link" onClick={this.props.onSubmit}>送出</a>
+                    <a href="#" className="link" onClick={this.props.onSubmit}>{onSubmitText}</a>
                 </div>
             )
         }
