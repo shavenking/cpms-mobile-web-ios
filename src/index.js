@@ -1,11 +1,7 @@
 import React from 'react'
 import { render } from 'react-dom'
-import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
-import thunk from 'redux-thunk'
-import reducer from './reducer'
-import { Router, Route, hashHistory, IndexRoute, IndexRedirect } from 'react-router'
-import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
+import { Router, Route, IndexRoute, IndexRedirect } from 'react-router'
 
 // container
 import {
@@ -21,16 +17,8 @@ import {
     RegisterPageContainer
 } from 'container'
 
-const middleware = [thunk];
-
-const store = createStore(
-    combineReducers(Object.assign({}, reducer, {
-        routing: routerReducer
-    })),
-    applyMiddleware(...middleware)
-)
-
-const history = syncHistoryWithStore(hashHistory, store)
+// config
+import {store, history} from './config'
 
 const UserAuthenticated = (nextState, replace, callback) => {
     const state = store.getState()
