@@ -21,9 +21,9 @@ import {
 import {store, history} from './config'
 
 const UserAuthenticated = (nextState, replace, callback) => {
-    const state = store.getState()
+    const {currentUser: {authToken}} = store.getState()
 
-    if (!state.currentUser || !state.currentUser.authToken) {
+    if (!authToken) {
         replace('/login')
     }
 

@@ -15613,9 +15613,12 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 // container
 var UserAuthenticated = function UserAuthenticated(nextState, replace, callback) {
-    var state = _config.store.getState();
+    var _store$getState = _config.store.getState();
 
-    if (!state.currentUser || !state.currentUser.authToken) {
+    var authToken = _store$getState.currentUser.authToken;
+
+
+    if (!authToken) {
         replace('/login');
     }
 
