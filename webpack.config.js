@@ -4,11 +4,18 @@ module.exports = {
         filename: './public/bundle.js'
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
                 exclude: /node_modules/,
-                loader: "babel-loader"
+                loader: "babel-loader",
+                options: {
+                    presets: [
+                        "react",
+                        "es2015",
+                        "stage-2"
+                    ]
+                }
             }
         ]
     }
