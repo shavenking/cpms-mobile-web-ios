@@ -13,10 +13,14 @@ module.exports = {
                     presets: [
                         "react",
                         "es2015",
-                        "stage-2"
+                        "stage-0"
                     ]
                 }
             }
         ]
+    },
+    resolve: {
+        modules: ['src', 'node_modules'],
+        extensions: ['.js', '.jsx']
     }
 }

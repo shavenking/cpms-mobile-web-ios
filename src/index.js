@@ -4,19 +4,22 @@ import { createStore, applyMiddleware, combineReducers } from 'redux'
 import { Provider } from 'react-redux'
 import thunk from 'redux-thunk'
 import reducer from './reducer'
-import App from './container/App'
-import ProjectHome from './component/ProjectHome'
 import { Router, Route, hashHistory, IndexRoute, IndexRedirect } from 'react-router'
-import ProjectsContainer from './container/ProjectsContainer'
 import { syncHistoryWithStore, routerReducer } from 'react-router-redux'
-import RegisterPageContainer from './container/RegisterPageContainer'
-import LoginPageContainer from './container/LoginPageContainer'
-import ProjectCreateContainer from './container/ProjectCreateContainer'
-import ProjectHomeContainer from './container/ProjectHomeContainer'
-import ConstructionDailyListContainer from './container/ConstructionDailyListContainer'
-import ConstructionDailyCreateContainer from './container/ConstructionDailyCreateContainer'
-import ConstructionDailyContainer from './container/ConstructionDailyContainer'
-import ConstructionDailyWorkCreateContainer from './container/ConstructionDailyWorkCreateContainer'
+
+// container
+import {
+    App,
+    ConstructionDailyContainer,
+    ConstructionDailyCreateContainer,
+    ConstructionDailyListContainer,
+    ConstructionDailyWorkCreateContainer,
+    LoginPageContainer,
+    ProjectCreateContainer,
+    ProjectHomeContainer,
+    ProjectsContainer,
+    RegisterPageContainer
+} from 'container'
 
 const middleware = [thunk];
 
