@@ -17066,7 +17066,7 @@ var ConstructionDailyWorkCreate = function (_Component) {
                                         _react2.default.createElement(
                                             'div',
                                             { className: 'item-input' },
-                                            _react2.default.createElement('input', { type: 'tel', name: 'amount', placeholder: '\u6578\u91CF' })
+                                            _react2.default.createElement('input', { type: 'number', name: 'amount', placeholder: '\u6578\u91CF' })
                                         )
                                     )
                                 )
@@ -17256,7 +17256,7 @@ var DailyMaterialCreate = function (_Component) {
                                         _react2.default.createElement(
                                             'div',
                                             { className: 'item-input' },
-                                            _react2.default.createElement('input', { type: 'tel', name: 'amount', placeholder: '\u6578\u91CF' })
+                                            _react2.default.createElement('input', { type: 'number', name: 'amount', placeholder: '\u6578\u91CF' })
                                         )
                                     )
                                 )

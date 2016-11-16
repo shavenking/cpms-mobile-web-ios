@@ -66,7 +66,7 @@ class ConstructionDailyWorkCreate extends Component {
                                     <div className="item-inner">
                                         <div className="item-title label">數量</div>
                                         <div className="item-input">
-                                            <input type="tel" name="amount" placeholder="數量" />
+                                            <input type="number" name="amount" placeholder="數量" />
                                         </div>
                                     </div>
                                 </div>
