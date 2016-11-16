@@ -5,9 +5,12 @@ import {Link} from 'react-router'
 
 class ConstructionDaily extends Component {
     render() {
-        const constructionDaily = this.props.constructionDaily
-        const projectId = this.props.projectId
-        const works = this.props.works
+        const {
+            constructionDaily,
+            materials,
+            projectId,
+            works
+        } = this.props
 
         return (
             <div className="page">
@@ -30,7 +33,7 @@ class ConstructionDaily extends Component {
                     <div className="list-block media-list">
                         <ul>
                             {works.map(work => (
-                                <li key={work.id}>
+                                <li key={`${work.construction_daily_id}_${work.id}`}>
                                     <div className="item-content">
                                         <div className="item-inner">
                                             <div className="item-title-row">
@@ -43,6 +46,28 @@ class ConstructionDaily extends Component {
                             ))}
                             <li>
                                 <Link to={`/projects/${projectId}/construction-dailies/${constructionDaily.id}/works/create`} className="item-link list-button">新增今日施工工項</Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* 今日工地材料 */}
+                    <div className="content-block-title">今日工地材料</div>
+                    <div className="list-block media-list">
+                        <ul>
+                            {materials.map(material => (
+                                <li key={`${material.construction_daily_id}_${material.id}`}>
+                                    <div className="item-content">
+                                        <div className="item-inner">
+                                            <div className="item-title-row">
+                                                <div className="item-title">{material.name}</div>
+                                                <div className="item-after">{material.amount}（{material.unit_name}）</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                            <li>
+                                <Link to={`/projects/${projectId}/construction-dailies/${constructionDaily.id}/materials/create`} className="item-link list-button">新增今日工地材料</Link>
                             </li>
                         </ul>
                     </div>

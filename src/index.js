@@ -10,6 +10,7 @@ import {
     ConstructionDailyCreateContainer,
     ConstructionDailyListContainer,
     ConstructionDailyWorkCreateContainer,
+    DailyMaterialCreateContainer,
     LoginPageContainer,
     ProjectCreateContainer,
     ProjectHomeContainer,
@@ -45,6 +46,7 @@ render(
                     <Route path=":projectId/construction-dailies/create" component={ConstructionDailyCreateContainer} />
                     <Route path=":projectId/construction-dailies/:constructionDailyId" component={ConstructionDailyContainer} />
                     <Route path=":projectId/construction-dailies/:constructionDailyId/works/create" component={ConstructionDailyWorkCreateContainer} />
+                    <Route path=":projectId/construction-dailies/:constructionDailyId/materials/create" component={DailyMaterialCreateContainer} />
                 </Route>
                 <Route path="register" component={RegisterPageContainer} />
                 <Route path="login" component={LoginPageContainer} />

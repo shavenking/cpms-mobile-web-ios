@@ -15647,7 +15647,8 @@ var UserAuthenticated = function UserAuthenticated(nextState, replace, callback)
                 _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies', component: _container.ConstructionDailyListContainer }),
                 _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies/create', component: _container.ConstructionDailyCreateContainer }),
                 _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies/:constructionDailyId', component: _container.ConstructionDailyContainer }),
-                _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies/:constructionDailyId/works/create', component: _container.ConstructionDailyWorkCreateContainer })
+                _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies/:constructionDailyId/works/create', component: _container.ConstructionDailyWorkCreateContainer }),
+                _react2.default.createElement(_reactRouter.Route, { path: ':projectId/construction-dailies/:constructionDailyId/materials/create', component: _container.DailyMaterialCreateContainer })
             ),
             _react2.default.createElement(_reactRouter.Route, { path: 'register', component: _container.RegisterPageContainer }),
             _react2.default.createElement(_reactRouter.Route, { path: 'login', component: _container.LoginPageContainer })
@@ -16424,9 +16425,12 @@ var ConstructionDaily = function (_Component) {
     _createClass(ConstructionDaily, [{
         key: 'render',
         value: function render() {
-            var constructionDaily = this.props.constructionDaily;
-            var projectId = this.props.projectId;
-            var works = this.props.works;
+            var _props = this.props;
+            var constructionDaily = _props.constructionDaily;
+            var materials = _props.materials;
+            var projectId = _props.projectId;
+            var works = _props.works;
+
 
             return _react2.default.createElement(
                 'div',
@@ -16484,7 +16488,7 @@ var ConstructionDaily = function (_Component) {
                             works.map(function (work) {
                                 return _react2.default.createElement(
                                     'li',
-                                    { key: work.id },
+                                    { key: work.construction_daily_id + '_' + work.id },
                                     _react2.default.createElement(
                                         'div',
                                         { className: 'item-content' },
@@ -16519,6 +16523,59 @@ var ConstructionDaily = function (_Component) {
                                     _reactRouter.Link,
                                     { to: '/projects/' + projectId + '/construction-dailies/' + constructionDaily.id + '/works/create', className: 'item-link list-button' },
                                     '\u65B0\u589E\u4ECA\u65E5\u65BD\u5DE5\u5DE5\u9805'
+                                )
+                            )
+                        )
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'content-block-title' },
+                        '\u4ECA\u65E5\u5DE5\u5730\u6750\u6599'
+                    ),
+                    _react2.default.createElement(
+                        'div',
+                        { className: 'list-block media-list' },
+                        _react2.default.createElement(
+                            'ul',
+                            null,
+                            materials.map(function (material) {
+                                return _react2.default.createElement(
+                                    'li',
+                                    { key: material.construction_daily_id + '_' + material.id },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'item-content' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-inner' },
+                                            _react2.default.createElement(
+                                                'div',
+                                                { className: 'item-title-row' },
+                                                _react2.default.createElement(
+                                                    'div',
+                                                    { className: 'item-title' },
+                                                    material.name
+                                                ),
+                                                _react2.default.createElement(
+                                                    'div',
+                                                    { className: 'item-after' },
+                                                    material.amount,
+                                                    '\uFF08',
+                                                    material.unit_name,
+                                                    '\uFF09'
+                                                )
+                                            )
+                                        )
+                                    )
+                                );
+                            }),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    _reactRouter.Link,
+                                    { to: '/projects/' + projectId + '/construction-dailies/' + constructionDaily.id + '/materials/create', className: 'item-link list-button' },
+                                    '\u65B0\u589E\u4ECA\u65E5\u5DE5\u5730\u6750\u6599'
                                 )
                             )
                         )
@@ -17778,6 +17835,8 @@ var _ConstructionDaily2 = _interopRequireDefault(_ConstructionDaily);
 
 var _ConstructionDaily3 = __webpack_require__(39);
 
+var _DailyMaterial = __webpack_require__(300);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -17796,7 +17855,8 @@ var ConstructionDailyContainer = function (_Component) {
 
         _this.state = {
             constructionDaily: {},
-            works: []
+            works: [],
+            materials: []
         };
         return _this;
     }
@@ -17817,22 +17877,31 @@ var ConstructionDailyContainer = function (_Component) {
 
                 _this2.setState({ works: works });
             });
+
+            this.props.dispatch((0, _DailyMaterial.getDailyMaterialList)(this.props.params.projectId, constructionDaily.id)).then(function (_ref2) {
+                var materials = _ref2.materials;
+
+                _this2.setState({ materials: materials });
+            });
         }
     }, {
         key: 'render',
         value: function render() {
-            var constructionDaily = this.state.constructionDaily;
-            var works = this.state.works;
+            var _state = this.state;
+            var constructionDaily = _state.constructionDaily;
+            var materials = _state.materials;
+            var works = _state.works;
 
-            return _react2.default.createElement(_ConstructionDaily2.default, { works: works, constructionDaily: constructionDaily, projectId: this.props.params.projectId });
+
+            return _react2.default.createElement(_ConstructionDaily2.default, { works: works, materials: materials, constructionDaily: constructionDaily, projectId: this.props.params.projectId });
         }
     }]);
 
     return ConstructionDailyContainer;
 }(_react.Component);
 
-var mapStateToProps = function mapStateToProps(_ref2) {
-    var constructionDailies = _ref2.constructionDailies;
+var mapStateToProps = function mapStateToProps(_ref3) {
+    var constructionDailies = _ref3.constructionDailies;
 
     return { constructionDailies: constructionDailies };
 };
@@ -18543,7 +18612,7 @@ exports.default = (0, _reactRedux.connect)()(RegisterContainer);
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.RegisterPageContainer = exports.ProjectsContainer = exports.ProjectHomeContainer = exports.ProjectCreateContainer = exports.LoginPageContainer = exports.ConstructionDailyWorkCreateContainer = exports.ConstructionDailyCreateContainer = exports.ConstructionDailyListContainer = exports.ConstructionDailyContainer = exports.App = undefined;
+exports.RegisterPageContainer = exports.ProjectsContainer = exports.ProjectHomeContainer = exports.ProjectCreateContainer = exports.LoginPageContainer = exports.DailyMaterialCreateContainer = exports.ConstructionDailyWorkCreateContainer = exports.ConstructionDailyCreateContainer = exports.ConstructionDailyListContainer = exports.ConstructionDailyContainer = exports.App = undefined;
 
 var _App2 = __webpack_require__(149);
 
@@ -18564,6 +18633,10 @@ var _ConstructionDailyCreateContainer3 = _interopRequireDefault(_ConstructionDai
 var _ConstructionDailyWorkCreateContainer2 = __webpack_require__(153);
 
 var _ConstructionDailyWorkCreateContainer3 = _interopRequireDefault(_ConstructionDailyWorkCreateContainer2);
+
+var _DailyMaterialCreateContainer2 = __webpack_require__(303);
+
+var _DailyMaterialCreateContainer3 = _interopRequireDefault(_DailyMaterialCreateContainer2);
 
 var _LoginPageContainer2 = __webpack_require__(154);
 
@@ -18592,6 +18665,7 @@ exports.ConstructionDailyContainer = _ConstructionDailyContainer3.default;
 exports.ConstructionDailyListContainer = _ConstructionDailyListContainer3.default;
 exports.ConstructionDailyCreateContainer = _ConstructionDailyCreateContainer3.default;
 exports.ConstructionDailyWorkCreateContainer = _ConstructionDailyWorkCreateContainer3.default;
+exports.DailyMaterialCreateContainer = _DailyMaterialCreateContainer3.default;
 exports.LoginPageContainer = _LoginPageContainer3.default;
 exports.ProjectCreateContainer = _ProjectCreateContainer3.default;
 exports.ProjectHomeContainer = _ProjectHomeContainer3.default;
@@ -33156,6 +33230,397 @@ __webpack_require__(137);
 __webpack_require__(138);
 module.exports = __webpack_require__(136);
 
+
+/***/ },
+/* 300 */
+/***/ function(module, exports) {
+
+"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var createDailyMaterial = exports.createDailyMaterial = function createDailyMaterial(projectId, constructionDailyId, formData) {
+    return function (dispatch, getState) {
+        var authToken = getState().currentUser.authToken;
+
+
+        return window.fetch('/api/projects/' + projectId + '/construction-dailies/' + constructionDailyId + '/materials', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            },
+            body: JSON.stringify(formData)
+        }).then(function (rep) {
+            return rep.json();
+        });
+    };
+};
+
+var getDailyMaterialList = exports.getDailyMaterialList = function getDailyMaterialList(projectId, constructionDailyId) {
+    return function (dispatch, getState) {
+        var authToken = getState().currentUser.authToken;
+
+
+        return window.fetch('/api/projects/' + projectId + '/construction-dailies/' + constructionDailyId + '/materials', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            }
+        }).then(function (rep) {
+            return rep.json();
+        }).then(function (data) {
+            return data;
+        });
+    };
+};
+
+/***/ },
+/* 301 */
+/***/ function(module, exports) {
+
+"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+var createMaterial = exports.createMaterial = function createMaterial(formData) {
+    return function (dispatch, getState) {
+        var authToken = getState().currentUser.authToken;
+
+
+        return window.fetch('/api/materials', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            },
+            body: JSON.stringify(formData)
+        }).then(function (rep) {
+            return rep.json();
+        });
+    };
+};
+
+var getMaterialList = exports.getMaterialList = function getMaterialList() {
+    return function (dispatch, getState) {
+        var authToken = getState().currentUser.authToken;
+
+
+        return window.fetch('/api/materials', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + authToken
+            }
+        }).then(function (rep) {
+            return rep.json();
+        });
+    };
+};
+
+/***/ },
+/* 302 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(9);
+
+var _Navbar = __webpack_require__(13);
+
+var _Navbar2 = _interopRequireDefault(_Navbar);
+
+var _reactRouter = __webpack_require__(7);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DailyMaterialCreate = function (_Component) {
+    _inherits(DailyMaterialCreate, _Component);
+
+    function DailyMaterialCreate() {
+        var _ref;
+
+        var _temp, _this, _ret;
+
+        _classCallCheck(this, DailyMaterialCreate);
+
+        for (var _len = arguments.length, args = Array(_len), _key = 0; _key < _len; _key++) {
+            args[_key] = arguments[_key];
+        }
+
+        return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = DailyMaterialCreate.__proto__ || Object.getPrototypeOf(DailyMaterialCreate)).call.apply(_ref, [this].concat(args))), _this), _this.handleOnSubmit = function (e) {
+            e.preventDefault();
+
+            _this.props.onSubmit(_this.form);
+        }, _temp), _possibleConstructorReturn(_this, _ret);
+    }
+
+    _createClass(DailyMaterialCreate, [{
+        key: 'render',
+        value: function render() {
+            var _this2 = this;
+
+            var _props = this.props;
+            var construcitonDailyId = _props.construcitonDailyId;
+            var materials = _props.materials;
+            var projectId = _props.projectId;
+
+
+            return _react2.default.createElement(
+                'div',
+                { className: 'page' },
+                _react2.default.createElement(
+                    'div',
+                    { className: 'page-content' },
+                    _react2.default.createElement(_Navbar2.default, { prevLink: '/projects/' + projectId + '/construction-dailies/' + construcitonDailyId, title: '\u65B0\u589E\u4ECA\u65E5\u5DE5\u5730\u6750\u6599', onSubmit: this.handleOnSubmit }),
+                    _react2.default.createElement(
+                        'form',
+                        { method: 'POST', action: '#', className: 'list-block', ref: function ref(form) {
+                                return _this2.form = form;
+                            } },
+                        _react2.default.createElement(
+                            'ul',
+                            null,
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'item-content' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'item-inner' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-title label' },
+                                            '\u9078\u64C7\u65E2\u6709\u5DE5\u5730\u6750\u6599'
+                                        ),
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-input' },
+                                            _react2.default.createElement(
+                                                'select',
+                                                { name: 'material_id' },
+                                                materials.map(function (material) {
+                                                    return _react2.default.createElement(
+                                                        'option',
+                                                        { key: material.id, value: material.id },
+                                                        material.name
+                                                    );
+                                                })
+                                            )
+                                        )
+                                    )
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'item-content' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'item-inner' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-title label' },
+                                            '\u65B0\u589E\u5DE5\u5730\u6750\u6599'
+                                        ),
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-input' },
+                                            _react2.default.createElement('input', { type: 'text', name: 'name', placeholder: '\u65B0\u589E\u5DE5\u5730\u6750\u6599' })
+                                        )
+                                    )
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'item-content' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'item-inner' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-title label' },
+                                            '\u55AE\u4F4D\u540D\u7A31'
+                                        ),
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-input' },
+                                            _react2.default.createElement('input', { type: 'text', name: 'unit_name', placeholder: '\u55AE\u4F4D\u540D\u7A31' })
+                                        )
+                                    )
+                                )
+                            ),
+                            _react2.default.createElement(
+                                'li',
+                                null,
+                                _react2.default.createElement(
+                                    'div',
+                                    { className: 'item-content' },
+                                    _react2.default.createElement(
+                                        'div',
+                                        { className: 'item-inner' },
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-title label' },
+                                            '\u6578\u91CF'
+                                        ),
+                                        _react2.default.createElement(
+                                            'div',
+                                            { className: 'item-input' },
+                                            _react2.default.createElement('input', { type: 'tel', name: 'amount', placeholder: '\u6578\u91CF' })
+                                        )
+                                    )
+                                )
+                            )
+                        )
+                    )
+                )
+            );
+        }
+    }]);
+
+    return DailyMaterialCreate;
+}(_react.Component);
+
+exports.default = (0, _reactRedux.connect)()(DailyMaterialCreate);
+
+/***/ },
+/* 303 */
+/***/ function(module, exports, __webpack_require__) {
+
+"use strict";
+'use strict';
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(1);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _reactRedux = __webpack_require__(9);
+
+var _DailyMaterialCreate = __webpack_require__(302);
+
+var _DailyMaterialCreate2 = _interopRequireDefault(_DailyMaterialCreate);
+
+var _reactRouter = __webpack_require__(7);
+
+var _formSerialize = __webpack_require__(54);
+
+var _formSerialize2 = _interopRequireDefault(_formSerialize);
+
+var _DailyMaterial = __webpack_require__(300);
+
+var _Material = __webpack_require__(301);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var DailyMaterialCreateContainer = function (_Component) {
+    _inherits(DailyMaterialCreateContainer, _Component);
+
+    function DailyMaterialCreateContainer(props) {
+        _classCallCheck(this, DailyMaterialCreateContainer);
+
+        var _this = _possibleConstructorReturn(this, (DailyMaterialCreateContainer.__proto__ || Object.getPrototypeOf(DailyMaterialCreateContainer)).call(this, props));
+
+        _this.handleOnSubmit = function (form) {
+            var formData = (0, _formSerialize2.default)(form, { hash: true });
+            var projectId = _this.props.params.projectId;
+            var constructionDailyId = _this.props.params.constructionDailyId;
+
+            // 如果使用者有填「新增材料」的內容，就直接新增該材料，並新增到日報表上
+            // 如果使用者沒填「新增材料」的內容，就使用既有材料和數量兩個欄位，新增到日報表上
+            if (formData.name) {
+                _this.props.dispatch((0, _Material.createMaterial)(formData)).then(function (_ref) {
+                    var material = _ref.material;
+
+                    formData.material_id = material.id;
+
+                    _this.props.dispatch((0, _DailyMaterial.createDailyMaterial)(projectId, constructionDailyId, formData)).then(function () {
+                        _reactRouter.hashHistory.replace('/projects/' + projectId + '/construction-dailies/' + constructionDailyId);
+                    });
+                });
+
+                return;
+            }
+
+            _this.props.dispatch((0, _DailyMaterial.createDailyMaterial)(projectId, constructionDailyId, formData)).then(function () {
+                _reactRouter.hashHistory.replace('/projects/' + projectId + '/construction-dailies/' + constructionDailyId);
+            });
+        };
+
+        _this.state = {
+            materials: []
+        };
+        return _this;
+    }
+
+    _createClass(DailyMaterialCreateContainer, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            var _this2 = this;
+
+            this.props.dispatch((0, _Material.getMaterialList)()).then(function (_ref2) {
+                var materials = _ref2.materials;
+
+                _this2.setState({ materials: materials });
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            var projectId = this.props.params.projectId;
+            var constructionDailyId = this.props.params.constructionDailyId;
+            var materials = this.state.materials;
+
+
+            return _react2.default.createElement(_DailyMaterialCreate2.default, { projectId: projectId, constructionDailyId: constructionDailyId, materials: materials, onSubmit: this.handleOnSubmit });
+        }
+    }]);
+
+    return DailyMaterialCreateContainer;
+}(_react.Component);
+
+exports.default = (0, _reactRedux.connect)()(DailyMaterialCreateContainer);
 
 /***/ }
 /******/ ]);
