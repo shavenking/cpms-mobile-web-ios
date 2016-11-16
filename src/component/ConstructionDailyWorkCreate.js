@@ -17,14 +17,14 @@ class ConstructionDailyWorkCreate extends Component {
     }
 
     render() {
-        const construcitonDailyId = this.props.construcitonDailyId
+        const constructionDailyId = this.props.constructionDailyId
         const projectId = this.props.projectId
         const works = this.props.works
 
         return (
             <div className="page">
                 <div className="page-content">
-                    <Navbar prevLink={`/projects/${projectId}/construction-dailies/${construcitonDailyId}`} title="新增今日施工工項" onSubmit={this.handleOnSubmit} />
+                    <Navbar prevLink={`/projects/${projectId}/construction-dailies/${constructionDailyId}`} title="新增今日施工工項" onSubmit={this.handleOnSubmit} />
                     <form method="POST" action="#" className="list-block" ref={(form) => this.form = form}>
                         <ul>
                             <li>

@@ -12,7 +12,7 @@ class DailyMaterialCreate extends Component {
 
     render() {
         const {
-            construcitonDailyId,
+            constructionDailyId,
             materials,
             projectId
         } = this.props
@@ -20,7 +20,7 @@ class DailyMaterialCreate extends Component {
         return (
             <div className="page">
                 <div className="page-content">
-                    <Navbar prevLink={`/projects/${projectId}/construction-dailies/${construcitonDailyId}`} title="新增今日工地材料" onSubmit={this.handleOnSubmit} />
+                    <Navbar prevLink={`/projects/${projectId}/construction-dailies/${constructionDailyId}`} title="新增今日工地材料" onSubmit={this.handleOnSubmit} />
                     <form method="POST" action="#" className="list-block" ref={(form) => this.form = form}>
                         <ul>
                             <li>
