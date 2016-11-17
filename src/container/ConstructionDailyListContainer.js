@@ -1,10 +1,10 @@
 import React, { Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
-import { getAllProjects } from '../action/Project'
+import { getAllProjects } from 'action/Project'
 import { Link } from 'react-router'
-import Navbar from '../component/Navbar'
-import ConstructionDailyList from '../component/ConstructionDailyList'
-import { getConstructionDailyList } from '../action/ConstructionDaily'
+import Navbar from 'component/Navbar'
+import ConstructionDailyList from 'component/ConstructionDailyList'
+import { getConstructionDailyList } from 'action/ConstructionDaily'
 
 class ConstructionDailyListContainer extends Component {
     componentDidMount() {

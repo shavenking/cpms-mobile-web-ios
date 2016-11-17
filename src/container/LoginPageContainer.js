@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import LoginPage from '../component/LoginPage'
+import LoginPage from 'component/LoginPage'
 import { hashHistory } from 'react-router'
-import { loginUser } from '../action/User'
+import { loginUser } from 'action/User'
 
 class LoginContainer extends Component {
     handleOnSubmit = ({email, password}) => {

@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import ProjectCreate from '../component/ProjectCreate'
+import ProjectCreate from 'component/ProjectCreate'
 import { hashHistory } from 'react-router'
-import { getAllProjects, createProject } from '../action/Project'
+import { getAllProjects, createProject } from 'action/Project'
 
 class ProjectCreateContainer extends Component {
     handleOnSubmit = (form) => {

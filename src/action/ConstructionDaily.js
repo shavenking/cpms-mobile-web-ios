@@ -1,4 +1,4 @@
-import { CONSTRUCTION_DAILY_LIST_RECEIVED, CONSTRUCTION_DAILY_CREATED } from '../constant/actionType'
+import {CONSTRUCTION_DAILY_LIST_RECEIVED, CONSTRUCTION_DAILY_CREATED} from 'constant/ActionType'
 import formSerialize from 'form-serialize'
 
 export const getWorksByConstructionDaily = (projectId, constructionDailyId) => {

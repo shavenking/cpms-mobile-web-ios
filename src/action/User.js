@@ -3,7 +3,7 @@ import {
     REGISTER_USER_SUCCESS,
     REGISTER_USER_FAILED,
     LOGIN_USER_SUCCESS
-} from '../constant/actionType'
+} from 'constant/ActionType'
 
 export const registerUser = ({name, email, password, passwordConfirmation}) => {
     return (

@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import Navbar from '../component/Navbar'
+import Navbar from 'component/Navbar'
 import {Link} from 'react-router'
 
 class ConstructionDailyCreate extends Component {

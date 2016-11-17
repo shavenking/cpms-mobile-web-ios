@@ -3263,7 +3263,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createProject = exports.getAllProjects = undefined;
 
-var _actionType = __webpack_require__(40);
+var _ActionType = __webpack_require__(40);
 
 var _formSerialize = __webpack_require__(42);
 
@@ -3286,7 +3286,7 @@ var getAllProjects = exports.getAllProjects = function getAllProjects() {
             return rep.json();
         }).then(function (data) {
             dispatch({
-                type: _actionType.PROJECTS_RECEIVED,
+                type: _ActionType.PROJECTS_RECEIVED,
                 projects: data.projects
             });
         });
@@ -3309,7 +3309,7 @@ var createProject = exports.createProject = function createProject(form) {
             return rep.json();
         }).then(function (project) {
             dispatch({
-                type: _actionType.PROJECT_CREATED,
+                type: _ActionType.PROJECT_CREATED,
                 project: project
             });
 
@@ -4672,7 +4672,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.createConstructionDailyWork = exports.createConstructionDaily = exports.getConstructionDailyList = exports.getWorksByConstructionDaily = undefined;
 
-var _actionType = __webpack_require__(40);
+var _ActionType = __webpack_require__(40);
 
 var _formSerialize = __webpack_require__(42);
 
@@ -4714,7 +4714,7 @@ var getConstructionDailyList = exports.getConstructionDailyList = function getCo
             return rep.json();
         }).then(function (data) {
             dispatch({
-                type: _actionType.CONSTRUCTION_DAILY_LIST_RECEIVED,
+                type: _ActionType.CONSTRUCTION_DAILY_LIST_RECEIVED,
                 constructionDailies: data.constructionDailies
             });
         });
@@ -4748,7 +4748,7 @@ var createConstructionDaily = exports.createConstructionDaily = function createC
             return rep.json();
         }).then(function (data) {
             dispatch({
-                type: _actionType.CONSTRUCTION_DAILY_CREATED,
+                type: _ActionType.CONSTRUCTION_DAILY_CREATED,
                 constructionDaily: data.constructionDaily
             });
 
@@ -9665,7 +9665,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.loginUser = exports.registerUser = undefined;
 
-var _actionType = __webpack_require__(40);
+var _ActionType = __webpack_require__(40);
 
 var registerUser = exports.registerUser = function registerUser(_ref) {
     var name = _ref.name;
@@ -9689,7 +9689,7 @@ var registerUser = exports.registerUser = function registerUser(_ref) {
             return rep.json();
         }).then(function (data) {
             dispatch({
-                type: _actionType.REGISTER_USER_SUCCESS,
+                type: _ActionType.REGISTER_USER_SUCCESS,
                 authToken: data.token
             });
         });
@@ -9714,7 +9714,7 @@ var loginUser = exports.loginUser = function loginUser(_ref2) {
             return rep.json();
         }).then(function (data) {
             dispatch({
-                type: _actionType.LOGIN_USER_SUCCESS,
+                type: _ActionType.LOGIN_USER_SUCCESS,
                 authToken: data.token
             });
         });
@@ -19074,16 +19074,16 @@ Object.defineProperty(exports, "__esModule", {
     value: true
 });
 
-var _actionType = __webpack_require__(40);
+var _ActionType = __webpack_require__(40);
 
 var projects = function projects() {
     var state = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
     var action = arguments[1];
 
     switch (action.type) {
-        case _actionType.PROJECTS_RECEIVED:
+        case _ActionType.PROJECTS_RECEIVED:
             return action.projects;
-        case _actionType.PROJECT_CREATED:
+        case _ActionType.PROJECT_CREATED:
         default:
             return state;
     }
@@ -19096,8 +19096,8 @@ var currentUser = function currentUser() {
     var action = arguments[1];
 
     switch (action.type) {
-        case _actionType.REGISTER_USER_SUCCESS:
-        case _actionType.LOGIN_USER_SUCCESS:
+        case _ActionType.REGISTER_USER_SUCCESS:
+        case _ActionType.LOGIN_USER_SUCCESS:
             return Object.assign({}, state, {
                 authToken: action.authToken
             });
@@ -19111,9 +19111,9 @@ var constructionDailies = function constructionDailies() {
     var action = arguments[1];
 
     switch (action.type) {
-        case _actionType.CONSTRUCTION_DAILY_LIST_RECEIVED:
+        case _ActionType.CONSTRUCTION_DAILY_LIST_RECEIVED:
             return action.constructionDailies;
-        case _actionType.CONSTRUCTION_DAILY_CREATED:
+        case _ActionType.CONSTRUCTION_DAILY_CREATED:
         default:
             return state;
     }

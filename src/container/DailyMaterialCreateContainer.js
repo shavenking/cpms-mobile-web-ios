@@ -1,13 +1,13 @@
 import React, { Component, PropTypes} from 'react'
 import { connect } from 'react-redux'
-import DailyMaterialCreate from '../component/DailyMaterialCreate'
+import DailyMaterialCreate from 'component/DailyMaterialCreate'
 import { hashHistory } from 'react-router'
 import formSerialize from 'form-serialize'
-import {createDailyMaterial} from '../action/DailyMaterial'
+import {createDailyMaterial} from 'action/DailyMaterial'
 import {
     createMaterial,
     getMaterialList
-} from '../action/Material'
+} from 'action/Material'
 
 class DailyMaterialCreateContainer extends Component {
     constructor(props) {

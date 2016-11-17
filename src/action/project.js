@@ -1,4 +1,4 @@
-import {PROJECTS_RECEIVED, PROJECT_CREATED} from '../constant/actionType'
+import {PROJECTS_RECEIVED, PROJECT_CREATED} from 'constant/ActionType'
 import formSerialize from 'form-serialize'
 
 export const getAllProjects = () => {

@@ -1,8 +1,8 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import ConstructionDaily from '../component/ConstructionDaily'
-import {getWorksByConstructionDaily, getConstructionDailyList} from '../action/ConstructionDaily'
-import {getDailyMaterialList} from '../action/DailyMaterial'
+import ConstructionDaily from 'component/ConstructionDaily'
+import {getWorksByConstructionDaily, getConstructionDailyList} from 'action/ConstructionDaily'
+import {getDailyMaterialList} from 'action/DailyMaterial'
 
 class ConstructionDailyContainer extends Component {
     constructor(props) {

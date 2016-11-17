@@ -1,8 +1,8 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import RegisterPage from '../component/RegisterPage'
+import RegisterPage from 'component/RegisterPage'
 import { hashHistory } from 'react-router'
-import { registerUser } from '../action/User'
+import { registerUser } from 'action/User'
 
 class RegisterContainer extends Component {
     handleOnSubmit = ({name, email, password, passwordConfirmation}) => {

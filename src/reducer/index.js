@@ -5,7 +5,7 @@ import {
     LOGIN_USER_SUCCESS,
     CONSTRUCTION_DAILY_LIST_RECEIVED,
     CONSTRUCTION_DAILY_CREATED
-} from '../constant/actionType'
+} from 'constant/ActionType'
 
 const projects = (state = [], action) => {
     switch (action.type) {
