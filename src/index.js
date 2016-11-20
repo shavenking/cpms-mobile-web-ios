@@ -10,6 +10,7 @@ import {
     ConstructionDailyCreateContainer,
     ConstructionDailyListContainer,
     ConstructionDailyWorkCreateContainer,
+    DailyLaborCreateContainer,
     DailyMaterialCreateContainer,
     LoginPageContainer,
     ProjectCreateContainer,
@@ -45,8 +46,15 @@ render(
                     <Route path=":projectId/construction-dailies" component={ConstructionDailyListContainer} />
                     <Route path=":projectId/construction-dailies/create" component={ConstructionDailyCreateContainer} />
                     <Route path=":projectId/construction-dailies/:constructionDailyId" component={ConstructionDailyContainer} />
+
+                    {/* 日報表 - 工項 */}
                     <Route path=":projectId/construction-dailies/:constructionDailyId/works/create" component={ConstructionDailyWorkCreateContainer} />
+
+                    {/* 日報表 - 材料 */}
                     <Route path=":projectId/construction-dailies/:constructionDailyId/materials/create" component={DailyMaterialCreateContainer} />
+
+                    {/* 日報表 - 人員 */}
+                    <Route path=":projectId/construction-dailies/:constructionDailyId/labors/create" component={DailyLaborCreateContainer} />
                 </Route>
                 <Route path="register" component={RegisterPageContainer} />
                 <Route path="login" component={LoginPageContainer} />

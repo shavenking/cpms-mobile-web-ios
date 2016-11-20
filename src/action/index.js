@@ -1,5 +1,7 @@
 export ConstructionDaily from './ConstructionDaily'
+export DailyLabor from './DailyLabor'
 export DailyMaterial from './DailyMaterial'
+export Labor from './Labor'
 export Material from './Material'
 export Project from './Project'
 export User from './User'

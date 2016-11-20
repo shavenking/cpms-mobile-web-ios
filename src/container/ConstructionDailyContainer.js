@@ -1,18 +1,16 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import ConstructionDaily from 'component/ConstructionDaily'
 import {getWorksByConstructionDaily, getConstructionDailyList} from 'action/ConstructionDaily'
+import {getDailyLaborList} from 'action/DailyLabor'
 import {getDailyMaterialList} from 'action/DailyMaterial'
+import ConstructionDaily from 'component/ConstructionDaily'
 
 class ConstructionDailyContainer extends Component {
-    constructor(props) {
-        super(props)
-
-        this.state = {
-            constructionDaily: {},
-            works: [],
-            materials: []
-        }
+    state = {
+        constructionDaily: {},
+        labors: [],
+        materials: [],
+        works: []
     }
 
     componentDidMount() {
@@ -29,17 +27,28 @@ class ConstructionDailyContainer extends Component {
         this.props.dispatch(getDailyMaterialList(this.props.params.projectId, constructionDaily.id)).then(({materials}) => {
             this.setState({materials})
         })
+
+        this.props.dispatch(getDailyLaborList(this.props.params.projectId, constructionDaily.id)).then(({labors}) => {
+            this.setState({labors})
+        })
     }
 
     render() {
         const {
             constructionDaily,
+            labors,
             materials,
             works
         } = this.state
 
         return (
-            <ConstructionDaily works={works} materials={materials} constructionDaily={constructionDaily} projectId={this.props.params.projectId} />
+            <ConstructionDaily
+                constructionDaily={constructionDaily}
+                labors={labors}
+                materials={materials}
+                projectId={this.props.params.projectId}
+                works={works}
+            />
         )
     }
 }
