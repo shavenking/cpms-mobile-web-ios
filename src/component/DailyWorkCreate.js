@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import Navbar from 'component/Navbar'
 import {Link} from 'react-router'
 
-class ConstructionDailyWorkCreate extends Component {
+class DailyWorkCreate extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -79,4 +79,4 @@ class ConstructionDailyWorkCreate extends Component {
     }
 }
 
-export default connect()(ConstructionDailyWorkCreate)
+export default connect()(DailyWorkCreate)

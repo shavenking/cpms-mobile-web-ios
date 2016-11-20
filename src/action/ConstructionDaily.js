@@ -1,24 +1,6 @@
 import {CONSTRUCTION_DAILY_LIST_RECEIVED, CONSTRUCTION_DAILY_CREATED} from 'constant/ActionType'
 import formSerialize from 'form-serialize'
 
-export const getWorksByConstructionDaily = (projectId, constructionDailyId) => {
-    return (
-        (dispatch, getState) => {
-            const {authToken} = getState().currentUser
-
-            return window.fetch(`/api/projects/${projectId}/construction-dailies/${constructionDailyId}/works`, {
-                method: 'GET',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`
-                }
-            }).then(rep => rep.json()).then(data => {
-                return data
-            })
-        }
-    )
-}
-
 export const getConstructionDailyList = (projectId) => {
     return (
         (dispatch, getState) => {
@@ -74,25 +56,6 @@ export const createConstructionDaily = (projectId, form) => {
                 })
 
                 return data
-            })
-        }
-    )
-}
-
-export const createConstructionDailyWork = (projectId, constructionDailyId, formData) => {
-    return (
-        (dispatch, getState) => {
-            const {authToken} = getState().currentUser
-
-            return window.fetch(`/api/projects/${projectId}/construction-dailies/${constructionDailyId}/works`, {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Authorization': `Bearer ${authToken}`
-                },
-                body: JSON.stringify(formData)
-            }).then((rep) => {
-                return rep.json()
             })
         }
     )

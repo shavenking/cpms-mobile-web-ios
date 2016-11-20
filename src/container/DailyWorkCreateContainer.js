@@ -3,14 +3,15 @@ import { connect } from 'react-redux'
 import { getAllProjects } from 'action/Project'
 import { Link } from 'react-router'
 import Navbar from 'component/Navbar'
-import ConstructionDailyWorkCreate from 'component/ConstructionDailyWorkCreate'
-import { getConstructionDailyList, createConstructionDaily, createConstructionDailyWork } from 'action/ConstructionDaily'
+import DailyWorkCreate from 'component/DailyWorkCreate'
+import { getConstructionDailyList, createConstructionDaily} from 'action/ConstructionDaily'
 import { hashHistory } from 'react-router'
 import {getWorkList} from 'action/Work'
 import {createWork} from 'action/Work'
+import {createDailyWork} from 'action/DailyWork'
 import formSerialize from 'form-serialize'
 
-class ConstructionDailyWorkCreateContainer extends Component {
+class DailyWorkCreateContainer extends Component {
     constructor(props) {
         super(props)
 
@@ -36,7 +37,7 @@ class ConstructionDailyWorkCreateContainer extends Component {
             this.props.dispatch(createWork(formData)).then(({work}) => {
                 formData.work_id = work.id
 
-                this.props.dispatch(createConstructionDailyWork(projectId, constructionDailyId, formData)).then(() => {
+                this.props.dispatch(createDailyWork(projectId, constructionDailyId, formData)).then(() => {
                     hashHistory.replace(`/projects/${projectId}/construction-dailies/${constructionDailyId}`)
                 })
             })
@@ -44,7 +45,7 @@ class ConstructionDailyWorkCreateContainer extends Component {
             return
         }
 
-        this.props.dispatch(createConstructionDailyWork(projectId, constructionDailyId, formData)).then(() => {
+        this.props.dispatch(createDailyWork(projectId, constructionDailyId, formData)).then(() => {
             hashHistory.replace(`/projects/${projectId}/construction-dailies/${constructionDailyId}`)
         })
     }
@@ -55,9 +56,9 @@ class ConstructionDailyWorkCreateContainer extends Component {
         const works = this.state.works
 
         return (
-            <ConstructionDailyWorkCreate projectId={projectId} constructionDailyId={constructionDailyId} works={works} onSubmit={this.handleOnSubmit} />
+            <DailyWorkCreate projectId={projectId} constructionDailyId={constructionDailyId} works={works} onSubmit={this.handleOnSubmit} />
         )
     }
 }
 
-export default connect()(ConstructionDailyWorkCreateContainer)
+export default connect()(DailyWorkCreateContainer)

@@ -9,9 +9,9 @@ import {
     ConstructionDailyContainer,
     ConstructionDailyCreateContainer,
     ConstructionDailyListContainer,
-    ConstructionDailyWorkCreateContainer,
     DailyLaborCreateContainer,
     DailyMaterialCreateContainer,
+    DailyWorkCreateContainer,
     LoginPageContainer,
     ProjectCreateContainer,
     ProjectHomeContainer,
@@ -48,7 +48,7 @@ render(
                     <Route path=":projectId/construction-dailies/:constructionDailyId" component={ConstructionDailyContainer} />
 
                     {/* 日報表 - 工項 */}
-                    <Route path=":projectId/construction-dailies/:constructionDailyId/works/create" component={ConstructionDailyWorkCreateContainer} />
+                    <Route path=":projectId/construction-dailies/:constructionDailyId/works/create" component={DailyWorkCreateContainer} />
 
                     {/* 日報表 - 材料 */}
                     <Route path=":projectId/construction-dailies/:constructionDailyId/materials/create" component={DailyMaterialCreateContainer} />
