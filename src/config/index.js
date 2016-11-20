@@ -14,3 +14,5 @@ export const store = createStore(
 )
 
 export const history = syncHistoryWithStore(hashHistory, store)
+
+export getRoute from './route'
