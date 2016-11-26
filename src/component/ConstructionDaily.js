@@ -7,6 +7,7 @@ class ConstructionDaily extends Component {
     render() {
         const {
             constructionDaily,
+            appliances,
             labors,
             materials,
             projectId,
@@ -91,6 +92,28 @@ class ConstructionDaily extends Component {
                             ))}
                             <li>
                                 <Link to={`/projects/${projectId}/construction-dailies/${constructionDaily.id}/labors/create`} className="item-link list-button">新增今日工地人員</Link>
+                            </li>
+                        </ul>
+                    </div>
+
+                    {/* 今日施工機具 */}
+                    <div className="content-block-title">今日施工機具</div>
+                    <div className="list-block media-list">
+                        <ul>
+                            {appliances.map(appliance => (
+                                <li key={`${appliance.construction_daily_id}_${appliance.id}`}>
+                                    <div className="item-content">
+                                        <div className="item-inner">
+                                            <div className="item-title-row">
+                                                <div className="item-title">{appliance.name}</div>
+                                                <div className="item-after">{appliance.amount}（{appliance.unit_name}）</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </li>
+                            ))}
+                            <li>
+                                <Link to={`/projects/${projectId}/construction-dailies/${constructionDaily.id}/appliances/create`} className="item-link list-button">新增今日施工機具</Link>
                             </li>
                         </ul>
                     </div>

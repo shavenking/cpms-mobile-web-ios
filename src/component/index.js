@@ -1,6 +1,7 @@
 export ConstructionDaily from './ConstructionDaily'
 export ConstructionDailyCreate from './ConstructionDailyCreate'
 export ConstructionDailyList from './ConstructionDailyList'
+export DailyApplianceCreate from './DailyApplianceCreate'
 export DailyLaborCreate from './DailyLaborCreate'
 export DailyMaterialCreate from './DailyMaterialCreate'
 export DailyWorkCreate from './DailyWorkCreate'

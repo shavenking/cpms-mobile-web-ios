@@ -6,6 +6,7 @@ import {
     ConstructionDailyContainer,
     ConstructionDailyCreateContainer,
     ConstructionDailyListContainer,
+    DailyApplianceCreateContainer,
     DailyLaborCreateContainer,
     DailyMaterialCreateContainer,
     DailyWorkCreateContainer,
@@ -40,6 +41,9 @@ export default function getRoute({store, history, requireAuth}) {
 
                         {/* 日報表 - 人員 */}
                         <Route path=":projectId/construction-dailies/:constructionDailyId/labors/create" component={DailyLaborCreateContainer} />
+
+                        {/* 日報表 - 機具 */}
+                        <Route path=":projectId/construction-dailies/:constructionDailyId/appliances/create" component={DailyApplianceCreateContainer} />
                     </Route>
                     <Route path="register" component={RegisterPageContainer} />
                     <Route path="login" component={LoginPageContainer} />
